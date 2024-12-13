@@ -4,9 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nikolaos Fragkos</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             line-height: 1.6;
             margin: 0;
             padding: 0;
@@ -14,10 +18,10 @@
             color: #333;
         }
         header {
+            background: linear-gradient(45deg, #333, #555);
+            color: #fff;
             text-align: center;
             padding: 20px;
-            background: #333;
-            color: #fff;
             border-radius: 8px;
             max-width: 800px;
             margin: 20px auto;
@@ -38,6 +42,8 @@
             display: block;
             margin: 0 auto 20px;
             border-radius: 50%;
+            border: 3px solid #ddd;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
         section h2 {
             color: #444;
@@ -49,16 +55,21 @@
             list-style-type: none;
             padding: 0;
         }
-        li {
+        ul li {
             margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            border-left: 4px solid #1a73e8;
+            background-color: #f9f9f9;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         a {
             color: #1a73e8;
             text-decoration: none;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
         }
         a:hover {
+            color: #0056b3;
             text-decoration: underline;
         }
         footer nav a {
@@ -77,16 +88,16 @@
     <header>
         <h1>Nikolaos Fragkos</h1>
     </header>
-
     <footer>
         <nav>
-            <a href="index.html">Home</a> | 
-            <a href="publications.html">Publications</a> | 
-            <a href="projects.html">Projects</a>
+            <a href="index.html"><i class="fas fa-home"></i> Home</a> | 
+            <a href="publications.html"><i class="fas fa-book"></i> Publications</a> | 
+            <a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a> | 
+            <a href="cv.html"><i class="fas fa-file-alt"></i> CV</a>
         </nav>
     </footer>
     <main>
-        <section>
+        <section class="animate__animated animate__fadeInUp">
           <img src="1705266697481.jpg" alt="Round Image" width="150" height="150">
           <div>
               <p>I am an individual with a unique blend of skills and experiences that shape my journey. My strong sense of cooperation and team spirit enables me to thrive in collaborative environments, while my effective communication skills ensure clear articulation and active listening, fostering open dialogue and understanding. Adaptability is at the core of my professional identity. I embrace new challenges and environments, which has allowed me to excel in diverse situations.<br></p>
@@ -104,7 +115,7 @@
           </div>
         </section>
 
-        <section>
+        <section class="animate__animated animate__fadeInUp">
             <h2>Latest News</h2>
             <ul>
                 <li><strong>November 2024:</strong> Appointed as a teaching assistant in the course 'Food Fraud'.</li>
@@ -119,6 +130,7 @@
             </ul>
         </section>
     </main>
+
 
 
 </body>
