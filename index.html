@@ -4,44 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Nikolaos Fragkos</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: #fff;
+        }
+        header h1 {
+            margin: 0;
+        }
+        main {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        img {
+            display: block;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+        }
+        section h2 {
+            color: #444;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer nav a {
+            text-decoration: none;
+            margin: 0 10px;
+            color: #1a73e8;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
     <header>
-        <h1>Welcome to My Website</h1>
-      <footer style="text-align: center; margin-top: 20px;">
-          <nav>
-              <a href="index.html" style="text-decoration: none; margin: 0 10px;">Home</a> | 
-              <a href="publications.html" style="text-decoration: none; margin: 0 10px;">Publications</a> | 
-              <a href="projects.html" style="text-decoration: none; margin: 0 10px;">Projects</a>
-          </nav>
-      </footer>
-
-        <p>Hi, I'm Nikolaos Fragkos. Here's a little summary about me and my latest updates .</p>
+        <h1>Nikolaos Fragkos</h1>
     </header>
+        <footer>
+        <nav>
+            <a href="index.html">Home</a> | 
+            <a href="publications.html">Publications</a> | 
+            <a href="projects.html">Projects</a>
+        </nav>
+    </footer>
     <main>
         <section>
-          <img src="1705266697481.jpg" alt="Round Image" width="150" height="150" style="border-radius: 50%;">
-        <div style="max-width: 700px; line-height: 1.6; text-align: justify;">
-          <p style="margin: 5px 0;">I am an individual with a unique blend of skills and experiences that shape my journey. My strong sense of cooperation and team spirit enables me to thrive in collaborative environments, while my effective communication skills ensure clear articulation and active listening, fostering open dialogue and understanding. Adaptability is at the core of my professional identity. I embrace new challenges and environments, which has allowed me to excel in diverse situations.<br></p>
-          <p style="margin: 5px 0;">
+          <img src="1705266697481.jpg" alt="Round Image" width="150" height="150">
+        <div>
+          <p>I am an individual with a unique blend of skills and experiences that shape my journey. My strong sense of cooperation and team spirit enables me to thrive in collaborative environments, while my effective communication skills ensure clear articulation and active listening, fostering open dialogue and understanding. Adaptability is at the core of my professional identity. I embrace new challenges and environments, which has allowed me to excel in diverse situations.<br></p>
+          <p>
               My academic background in Agricultural Economics obtained from the
-              <a href="https://www2.aua.gr/en" target="_blank" style="text-decoration: none; color: black;">
-                  <strong>Agricultural University of Athens</strong>
-              </a> 
+              <a href="https://www2.aua.gr/en" target="_blank"><strong>Agricultural University of Athens</strong></a> 
               has provided me with a solid understanding of economic principles in agriculture, demonstrating my dedication to knowledge and expertise in this field.<br>
           </p>
-          <p style="margin: 5px 0;">Currently, I am pursuing a master's degree in 
-              <a href="https://www.wur.nl/en/education-programmes/master/msc-programmes/msc-data-science-for-food-and-health.htm" target="_blank" style="text-decoration: none; color: black;">
-                  <strong>Data Science for Food and Health</strong>
-              </a>
-          at 
-          <a href="https://www.wur.nl/" target="_blank" style="text-decoration: none; color: black;">
-                  <strong>Wageningen University and Research</strong>.
-              </a>
-              This advanced study enhances my ability to make a positive impact, integrating data science with my expertise in the agri-food domain.</p>
+          <p>Currently, I am pursuing a master's degree in 
+              <a href="https://www.wur.nl/en/education-programmes/master/msc-programmes/msc-data-science-for-food-and-health.htm" target="_blank"><strong>Data Science for Food and Health</strong></a>
+              at 
+              <a href="https://www.wur.nl/" target="_blank"><strong>Wageningen University and Research</strong></a>.
+              This advanced study enhances my ability to make a positive impact, integrating data science with my expertise in the agri-food domain.
+          </p>
         </div>
+        </section>
 
         <section>
             <h2>Latest News</h2>
@@ -55,12 +111,11 @@
                 <li><strong>Scholarship:</strong> I received John.S.Latsis scholarship for my master's study in Data Science for Food and Health. <em>(August 2023)</em></li>
                 <li><strong>Military Service:</strong> I fulfilled my military service in the Hellenic Navy. <em>(August 2023)</em></li>
                 <li><strong>Graduation:</strong> I graduated from the Agricultural University of Athens with honors. <em>(September 2022)</em></li>
-
-                        
             </ul>
         </section>
-
     </main>
+
+
 
 </body>
 </html>
