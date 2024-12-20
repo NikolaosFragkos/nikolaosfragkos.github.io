@@ -36,7 +36,7 @@
         }
         .project-content-wrapper {
             display: flex;
-            align-items: flex-start;
+            align-items: flex-start; /* Ensures alignment at the top */
             gap: 20px;
         }
         .project img {
@@ -51,6 +51,9 @@
         .project p {
             text-align: justify;
             margin: 10px 0;
+        }
+        .project-content p:first-child {
+            margin-top: 0; /* Remove any additional margin at the top */
         }
         .project .date {
             margin-top: 10px;
@@ -81,6 +84,10 @@
             color: #0056b3;
         }
     </style>
+
+
+
+
 </head>
 <body>
     <footer>
