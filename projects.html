@@ -35,6 +35,7 @@
             color: #1a73e8;
         }
         .project p {
+            text-align: justify;
             margin: 0;
         }
         a {
@@ -74,30 +75,41 @@
         <h1>My Projects</h1>
         <div class="project">
             <h3> MSc Thesis Project: AI and Citizen Science to combat food fraud</h3>
-            <p>{Image}</p>
+            <img src="thesis_img.jpg" alt="Project Image" style="width: 100%; max-width: 800px; height: auto; border-radius: 8px;">
             <p><strong>Description:</strong> This project focused on leveraging computer vision techniques to detect food fraud related to the geographical origin of bananas. 
                 RGB image data were sourced from the iNaturalist platform and processed using two state-of-the-art models, Grounding-DINO and Grounded-SAM, to streamline the detection and segmentation of banana bunches from their backgrounds. 
                 Subsequently, a Convolutional Neural Network (CNN) was developed, utilizing the pretrained MobileNet model, to classify and analyze the isolated banana images with precision. 
                 This approach demonstrated the potential for automated and scalable solutions to address food fraud issues.</p>
-            <p><strong>Date:</strong> September 2024 - March 2025</p>
+            <p><strong>Date:</strong> September 2024 - March 2025 (6 months)</p>
         </div>
         <div class="project">
-            <h3>Data Scraping RIVM</h3>
-            <p><strong>Description:</strong> A brief description of the project.</p>
-            <p><strong>Date:</strong> Month Year</p>
+            <h3>Creation of Database for dietary supplements</h3>
+            <p><strong>Description:</strong> Dietary supplements are a key part of the Dutch population’s nutrient intake, but accurate and comprehensive data is crucial for monitoring. 
+                This project, conducted in collaboration with the National Institute for Public Health and the Environment of Netherlands (RIVM), developed a web scraping pipeline to automate real-time extraction of dietary supplement data from three major Dutch retail websites: Etos, Kruidvat, and Vitamin Store. 
+                Using tools like Beautiful Soup and Scrapy, we extracted, cleaned, and standardized data on 1753 unique supplements with over 500 ingredients. 
+                The pipeline reduced manual effort, ensured high accuracy, and significantly enhanced the coverage of supplement data compared to existing databases.</p>
+            <p><strong>Date:</strong> May - July 2024 (2 months)</p>
+
         </div>
         <div class="project">
-            <h3>Prediction of food consumption to reduce food waste Wastewatchers</h3>
-            <p><strong>Description:</strong> A brief description of the project.</p>
-            <p><strong>Date:</strong> Month Year</p>
+            <h3>Prediction of Food Consumption to Reduce Food Waste</h3>
+            <p><strong>Description:</strong> This project, conducted in collaboration with Wastewatchers, focused on minimizing food waste by leveraging consumer behavior data provided by Wastewatchers. 
+                For a specific location, models were developed using PyCaret and advanced time series analysis to forecast daily consumption trends and the consumption of the most wasted products. 
+                By predicting consumption, the project aimed to indirectly predict waste and identify opportunities to reduce it. 
+                The workflow included data cleaning, feature engineering, and stacked modeling, with accuracy as the primary evaluation criterion. 
+                The models outperformed alternative approaches, offering actionable insights to optimize production processes and reduce food waste effectively.</p>
+            <p><strong>Date:</strong> March - May 2024 (2 months)</p>
         </div>
         <div class="project">
-            <h3>Prediction of morality rate by Covid-19</h3>
-            <p><strong>Description:</strong> A brief description of the project.</p>
-            <p><strong>Date:</strong> Month Year</p>
+            <h3>Prediction of COVID-19 Mortality Using Food Intake Data</h3>
+            <p><strong>Description:</strong> This study investigated the relationship between food intake and COVID-19 mortality rates across 170 countries, using data from Kaggle and the Food and Agriculture Organization (FAO). 
+                The project applied Machine Learning (ML) techniques to predict COVID-19 death rates based on dietary patterns and identify the most effective predictive model for decision-making. 
+                Through data preprocessing, feature engineering, and model evaluation, the XGB Regressor emerged as the best-performing model, demonstrating strong predictive accuracy. 
+                The findings provide actionable insights into the potential impact of dietary habits on health outcomes during the pandemic.</p>
+            <p><strong>Date:</strong> November 2023 - January 2024 (2 months)</p>
         </div>
         <div class="project">
-            <h3>Project Title 3</h3>
+            <h3>BSc Thesis</h3>
             <p><strong>Description:</strong> A brief description of the project.</p>
             <p><strong>Date:</strong> Month Year</p>
         </div>
