@@ -4,93 +4,88 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Projects</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        margin: 0;
-        padding: 0;
-        background-color: #f4f4f4;
-        color: #333;
-    }
-    .container {
-        max-width: 800px;
-        margin: 30px auto;
-        background: #fff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-        text-align: center;
-        color: #444;
-    }
-    .project {
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid #ddd;
-    }
-    .project-title {
-        margin-bottom: 10px;
-        color: #1a73e8;
-    }
-    .project-content-wrapper {
-        display: flex;
-        align-items: flex-start; /* Center-align items vertically */
-        gap: 20px;
-    }
-.project img {
-    display: block; /* Ensures no inline spacing issues */
-    margin-top: 6px; /* Fine-tune alignment with the text */
-    width: 200px;
-    height: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-    .project-content {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start; /* Align the content to the top */
-    }
-    .project-content p {
-        text-align: justify;
-        margin: 0; /* Remove default margins */
-    }
-    .project .date {
-        margin-top: 10px;
-    }
-    .project .date span {
-        font-weight: bold;
-    }
-    a {
-        color: #1a73e8;
-        text-decoration: none;
-    }
-    a:hover {
-        text-decoration: underline;
-    }
-    footer {
-        text-align: center;
-        padding: 10px 0;
-        margin-top: 20px;
-        background-color: #f4f4f4;
-    }
-    footer nav a {
-        text-decoration: none;
-        margin: 0 10px;
-        color: #1a73e8;
-        font-weight: bold;
-    }
-    footer nav a:hover {
-        color: #0056b3;
-    }
-</style>
-
-
-
-
-
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #444;
+        }
+        .project {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        .project-title {
+            margin-bottom: 10px;
+            color: #1a73e8;
+        }
+        .project-content-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+        .project img {
+            display: block; /* Ensures no inline spacing issues */
+            margin-top: 6px; /* Fine-tune alignment with the text */
+            width: 200px;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .project-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start; /* Align the content to the top */
+        }
+        .project-content p {
+            text-align: justify;
+            margin: 0; /* Remove default margins */
+        }
+        .project .date {
+            margin-top: 10px;
+        }
+        .project .date span {
+            font-weight: bold;
+        }
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+            background-color: #f4f4f4;
+        }
+        footer nav a {
+            text-decoration: none;
+            margin: 0 10px;
+            color: #1a73e8;
+            font-weight: bold;
+        }
+        footer nav a:hover {
+            color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <footer>
@@ -140,6 +135,29 @@
                         The workflow included data cleaning, feature engineering, and stacked modeling, with accuracy as the primary evaluation criterion. 
                         The models outperformed alternative approaches, offering actionable insights to optimize production processes and reduce food waste effectively.</p>
                     <p class="date"><span>Date:</span> March - May 2024 (2 months)</p>
+                </div>
+            </div>
+        </div>
+        <div class="project">
+            <h3 class="project-title">Prediction of COVID-19 Mortality Using Food Intake Data</h3>
+            <div class="project-content-wrapper">
+                <img src="covid_img.jpg" alt="Project Image">
+                <div class="project-content">
+                    <p><strong>Description:</strong> This study investigated the relationship between food intake and COVID-19 mortality rates across 170 countries, using data from Kaggle and the Food and Agriculture Organization (FAO). 
+                        The project applied Machine Learning (ML) techniques to predict COVID-19 death rates based on dietary patterns and identify the most effective predictive model for decision-making. 
+                        Through data preprocessing, feature engineering, and model evaluation, the XGB Regressor emerged as the best-performing model, demonstrating strong predictive accuracy. 
+                        The findings provide actionable insights into the potential impact of dietary habits on health outcomes during the pandemic.</p>
+                    <p class="date"><span>Date:</span> November 2023 - January 2024 (2 months)</p>
+                </div>
+            </div>
+        </div>
+        <div class="project">
+            <h3 class="project-title">BSc Thesis</h3>
+            <div class="project-content-wrapper">
+                <img src="bsc_thesis_img.jpg" alt="Project Image">
+                <div class="project-content">
+                    <p><strong>Description:</strong> A brief description of the project.</p>
+                    <p class="date"><span>Date:</span> Month Year</p>
                 </div>
             </div>
         </div>
