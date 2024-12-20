@@ -36,16 +36,17 @@
     }
     .project-content-wrapper {
         display: flex;
-        align-items: center; /* Center-align items vertically */
+        align-items: flex-start; /* Center-align items vertically */
         gap: 20px;
     }
-    .project img {
-        display: block; /* Ensures no inline spacing issues */
-        width: 200px;
-        height: auto;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+.project img {
+    display: block; /* Ensures no inline spacing issues */
+    margin-top: 5px; /* Fine-tune alignment with the text */
+    width: 200px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
     .project-content {
         flex: 1;
         display: flex;
