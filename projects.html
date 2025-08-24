@@ -64,13 +64,14 @@
     /* ------ Projects ------ */
     .projects { display: grid; gap: 16px; margin-top: 18px; }
     .project-card { background: var(--card); border: 1px solid var(--soft); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); display: grid; grid-template-columns: 220px 1fr; gap: 18px; }
-    .project-card img { width: 100%; height: auto; border-radius: 12px; display: block; border: 1px solid var(--soft); }
+    .project-card img { width: 220px; height: 160px; object-fit: cover; border-radius: 12px; display: block; border: 1px solid var(--soft); }
     .project-title { margin: 0 0 8px; color: var(--brand); font-size: 18px; }
     .project-desc { margin: 0; color: var(--text); text-align: justify; }
     .project-date { margin-top: 10px; color: var(--muted); font-size: 14px; }
 
     @media (max-width: 800px) {
       .project-card { grid-template-columns: 1fr; }
+      .project-card img { width: 100%; height: auto; }
     }
 
     /* Buttons (if needed) */
