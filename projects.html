@@ -1,171 +1,176 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 30px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #444;
-        }
-        .project {
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #ddd;
-        }
-        .project-title {
-            margin-bottom: 10px;
-            color: #1a73e8;
-        }
-        .project-content-wrapper {
-            display: flex;
-            align-items: flex-start;
-            gap: 20px;
-        }
-        .project img {
-            display: block; /* Ensures no inline spacing issues */
-            margin-top: 6px; /* Fine-tune alignment with the text */
-            width: 200px;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .project-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start; /* Align the content to the top */
-        }
-        .project-content p {
-            text-align: justify;
-            margin: 0; /* Remove default margins */
-        }
-        .project .date {
-            margin-top: 10px;
-        }
-        .project .date span {
-            font-weight: bold;
-        }
-        a {
-            color: #1a73e8;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            margin-top: 20px;
-            background-color: #f4f4f4;
-        }
-        footer nav a {
-            text-decoration: none;
-            margin: 0 10px;
-            color: #1a73e8;
-            font-weight: bold;
-        }
-        footer nav a:hover {
-            color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects — Nikolaos Fragkos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    /* ------ Theme ------ */
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --soft: #f0f2f8;
+      --text: #1b1f2a;
+      --muted: #4b5569;
+      --brand: #2f6dff;
+      --brand-strong: #1e56e6;
+      --accent: var(--brand);
+      --radius: 16px;
+      --shadow: 0 8px 24px rgba(31,35,45,0.08), 0 2px 6px rgba(31,35,45,0.06);
+    }
+    body.dark-mode {
+      --bg: #0b0c0f;
+      --card: #111318;
+      --soft: #171a21;
+      --text: #e7e9ee;
+      --muted: #a5adbd;
+      --brand: #6aa7ff;
+      --brand-strong: #4c89ff;
+      --accent: #528ee6;
+      --shadow: 0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    /* ------ Base ------ */
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+    a { color: var(--brand); text-decoration: none; }
+    body.dark-mode a { color: var(--text); }
+    a:hover { text-decoration: underline; }
+    .container { max-width: 1040px; margin: 0 auto; padding: 24px; }
+
+    /* ------ Header / Nav ------ */
+    .site-header { position: sticky; top: 0; z-index: 40; background: var(--card); border-bottom: 1px solid var(--soft); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-center { flex: 1; display: flex; justify-content: center; gap: 18px; }
+    .nav a { color: var(--text); font-weight: 500; opacity: 0.85; }
+    .nav a:hover { opacity: 1; }
+    .btn-toggle { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--soft); background: var(--soft); cursor: pointer; color: var(--text); margin-left: auto; }
+    .btn-toggle:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+    /* ------ Page Title ------ */
+    .page-head { margin-top: 26px; }
+    .title-card { background: var(--card); border: 1px solid var(--soft); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
+    .page-title { margin: 0; font-size: clamp(22px, 2.2vw + 10px, 34px); }
+    .page-sub { margin: 6px 0 0; color: var(--muted); }
+
+    /* ------ Projects ------ */
+    .projects { display: grid; gap: 16px; margin-top: 18px; }
+    .project-card { background: var(--card); border: 1px solid var(--soft); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); display: grid; grid-template-columns: 220px 1fr; gap: 18px; }
+    .project-card img { width: 100%; height: auto; border-radius: 12px; display: block; border: 1px solid var(--soft); }
+    .project-title { margin: 0 0 8px; color: var(--brand); font-size: 18px; }
+    .project-desc { margin: 0; color: var(--text); text-align: justify; }
+    .project-date { margin-top: 10px; color: var(--muted); font-size: 14px; }
+
+    @media (max-width: 800px) {
+      .project-card { grid-template-columns: 1fr; }
+    }
+
+    /* Buttons (if needed) */
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; font-weight: 600; text-decoration: none; }
+    .btn-primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
+    .btn-primary:hover { background: var(--brand-strong); border-color: var(--brand-strong); }
+
+    /* Footer */
+    footer.site-footer { color: var(--muted); text-align: center; margin: 28px 0; }
+  </style>
 </head>
 <body>
-    <footer>
-        <nav>
-            <a href="index.html"><i class="fas fa-home"></i> Home</a> | 
-            <a href="publications.html"><i class="fas fa-book"></i> Publications</a> | 
-            <a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a> | 
-            <a href="cv.html"><i class="fas fa-file-alt"></i> CV</a>
-        </nav>
-    </footer>
-    <div class="container">
-        <h1>My Projects</h1>
-        <div class="project">
-            <h3 class="project-title">MSc Thesis Project: AI and Citizen Science to combat food fraud</h3>
-            <div class="project-content-wrapper">
-                <img src="thesis_img.jpg" alt="Project Image">
-                <div class="project-content">
-                    <p><strong>Description:</strong> This project focused on leveraging computer vision techniques to detect food fraud related to the geographical origin of bananas. 
-                        RGB image data were sourced from the iNaturalist platform and processed using two state-of-the-art models, Grounding-DINO and Grounded-SAM, to streamline the detection and segmentation of banana bunches from their backgrounds. 
-                        Subsequently, a Convolutional Neural Network (CNN) was developed, utilizing the pretrained MobileNet model, to classify and analyze the isolated banana images with precision. 
-                        This approach demonstrated the potential for automated and scalable solutions to address food fraud issues.</p>
-                    <p class="date"><span>Date:</span> September 2024 - March 2025 (6 months)</p>
-                </div>
-            </div>
-        </div>
-        <div class="project">
-            <h3 class="project-title">Creation of Database for Dietary Supplements</h3>
-            <div class="project-content-wrapper">
-                <img src="supl_db_img.jpg" alt="Project Image">
-                <div class="project-content">
-                    <p><strong>Description:</strong> Dietary supplements are a key part of the Dutch population’s nutrient intake, but accurate and comprehensive data is crucial for monitoring. 
-                        This project, conducted in collaboration with the National Institute for Public Health and the Environment of Netherlands (RIVM), developed a web scraping pipeline to automate real-time extraction of dietary supplement data from three major Dutch retail websites: Etos, Kruidvat, and Vitamin Store. 
-                        Using tools like Beautiful Soup and Scrapy, we extracted, cleaned, and standardized data on 1753 unique supplements with over 500 ingredients. 
-                        The pipeline reduced manual effort, ensured high accuracy, and significantly enhanced the coverage of supplement data compared to existing databases.</p>
-                    <p class="date"><span>Date:</span> May - July 2024 (2 months)</p>
-                </div>
-            </div>
-        </div>
-        <div class="project">
-            <h3 class="project-title">Prediction of Food Consumption to Reduce Food Waste</h3>
-            <div class="project-content-wrapper">
-                <img src="waste_img.jpg" alt="Project Image">
-                <div class="project-content">
-                    <p><strong>Description:</strong> This project, conducted in collaboration with Wastewatchers, focused on minimizing food waste by leveraging consumer behavior data provided by Wastewatchers. 
-                        For a specific location, models were developed using PyCaret and advanced time series analysis to forecast daily consumption trends and the consumption of the most wasted products. 
-                        By predicting consumption, the project aimed to indirectly predict waste and identify opportunities to reduce it. 
-                        The workflow included data cleaning, feature engineering, and stacked modeling, with accuracy as the primary evaluation criterion. 
-                        The models outperformed alternative approaches, offering actionable insights to optimize production processes and reduce food waste effectively.</p>
-                    <p class="date"><span>Date:</span> March - May 2024 (2 months)</p>
-                </div>
-            </div>
-        </div>
-        <div class="project">
-            <h3 class="project-title">Prediction of COVID-19 Mortality Using Food Intake Data</h3>
-            <div class="project-content-wrapper">
-                <img src="covid_img.jpg" alt="Project Image">
-                <div class="project-content">
-                    <p><strong>Description:</strong> This study investigated the relationship between food intake and COVID-19 mortality rates across 170 countries, using data from Kaggle and the Food and Agriculture Organization (FAO). 
-                        The project applied Machine Learning (ML) techniques to predict COVID-19 death rates based on dietary patterns and identify the most effective predictive model for decision-making. 
-                        Through data preprocessing, feature engineering, and model evaluation, the XGB Regressor emerged as the best-performing model, demonstrating strong predictive accuracy. 
-                        The findings provide actionable insights into the potential impact of dietary habits on health outcomes during the pandemic.</p>
-                    <p class="date"><span>Date:</span> November 2023 - January 2024 (2 months)</p>
-                </div>
-            </div>
-        </div>
-        <div class="project">
-            <h3 class="project-title">BSc Thesis: Sentiment Analysis in Online Food Delivery</h3>
-            <div class="project-content-wrapper">
-                <img src="bsc_thesis_img.jpg" alt="Project Image">
-                <div class="project-content">
-                    <p><strong>Description:</strong> The rapid growth of user-generated data, such as reviews and preferences, offers businesses new opportunities to refine strategies through sentiment analysis. 
-                        This process identifies opinions and their polarity (positive, negative, neutral) using machine learning and lexical resources, helping businesses enhance customer satisfaction, marketing, product quality, and profitability.
-                        This study examines the potential of sentiment analysis in assessing consumer behavior in online food delivery. 
-                        It includes a review of applications in the food and beverage industry (2011–2021) and an overview of top sentiment analysis tools. 
-                        The analysis focuses on 300 Greek-language reviews from a leading online food delivery platform in Greece, offering insights for improving product quality, customer relationships, and strategies. 
-                        The precision of two sentiment analysis tools is compared to human evaluation, highlighting areas of online orders that impact consumer satisfaction and need improvement.</p>
-                    <p class="date"><span>Date:</span> January - July 2022 (6 months)</p>
-                </div>
-            </div>
-        </div>
+  <!-- Header / Nav -->
+  <header class="site-header">
+    <div class="container nav">
+      <div class="nav-center">
+        <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
+        <a href="projects.html"><i class="fa-solid fa-diagram-project"></i> Projects</a>
+        <a href="cv.html"><i class="fa-solid fa-file-lines"></i> CV</a>
+      </div>
+      <button class="btn-toggle" id="toggleTheme"><i class="fa-solid fa-moon"></i></button>
     </div>
+  </header>
+
+  <main class="container">
+    <!-- Page title -->
+    <section class="page-head">
+      <div class="title-card">
+        <h1 class="page-title">My Projects</h1>
+        <p class="page-sub">Selected work across computer vision, data engineering, and applied ML in food & health.</p>
+      </div>
+    </section>
+
+    <!-- Projects list -->
+    <section class="projects">
+      <article class="project-card">
+        <img src="thesis_img.jpg" alt="MSc Thesis Project image" />
+        <div>
+          <h3 class="project-title">MSc Thesis Project: AI and Citizen Science to combat food fraud</h3>
+          <p class="project-desc"><strong>Description:</strong> This project focused on leveraging computer vision techniques to detect food fraud related to the geographical origin of bananas. RGB image data were sourced from the iNaturalist platform and processed using two state-of-the-art models, Grounding-DINO and Grounded-SAM, to streamline the detection and segmentation of banana bunches from their backgrounds. Subsequently, a Convolutional Neural Network (CNN) was developed, utilizing the pretrained MobileNet model, to classify and analyze the isolated banana images with precision. This approach demonstrated the potential for automated and scalable solutions to address food fraud issues.</p>
+          <p class="project-date"><strong>Date:</strong> September 2024 - March 2025 (6 months)</p>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <img src="supl_db_img.jpg" alt="Dietary supplements database project image" />
+        <div>
+          <h3 class="project-title">Creation of Database for Dietary Supplements</h3>
+          <p class="project-desc"><strong>Description:</strong> Dietary supplements are a key part of the Dutch population’s nutrient intake, but accurate and comprehensive data is crucial for monitoring. This project, conducted in collaboration with the National Institute for Public Health and the Environment of Netherlands (RIVM), developed a web scraping pipeline to automate real-time extraction of dietary supplement data from three major Dutch retail websites: Etos, Kruidvat, and Vitamin Store. Using tools like Beautiful Soup and Scrapy, we extracted, cleaned, and standardized data on 1753 unique supplements with over 500 ingredients. The pipeline reduced manual effort, ensured high accuracy, and significantly enhanced the coverage of supplement data compared to existing databases.</p>
+          <p class="project-date"><strong>Date:</strong> May - July 2024 (2 months)</p>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <img src="waste_img.jpg" alt="Food consumption prediction project image" />
+        <div>
+          <h3 class="project-title">Prediction of Food Consumption to Reduce Food Waste</h3>
+          <p class="project-desc"><strong>Description:</strong> This project, conducted in collaboration with Wastewatchers, focused on minimizing food waste by leveraging consumer behavior data provided by Wastewatchers. For a specific location, models were developed using PyCaret and advanced time series analysis to forecast daily consumption trends and the consumption of the most wasted products. By predicting consumption, the project aimed to indirectly predict waste and identify opportunities to reduce it. The workflow included data cleaning, feature engineering, and stacked modeling, with accuracy as the primary evaluation criterion. The models outperformed alternative approaches, offering actionable insights to optimize production processes and reduce food waste effectively.</p>
+          <p class="project-date"><strong>Date:</strong> March - May 2024 (2 months)</p>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <img src="covid_img.jpg" alt="COVID-19 mortality prediction project image" />
+        <div>
+          <h3 class="project-title">Prediction of COVID-19 Mortality Using Food Intake Data</h3>
+          <p class="project-desc"><strong>Description:</strong> This study investigated the relationship between food intake and COVID-19 mortality rates across 170 countries, using data from Kaggle and the Food and Agriculture Organization (FAO). The project applied Machine Learning (ML) techniques to predict COVID-19 death rates based on dietary patterns and identify the most effective predictive model for decision-making. Through data preprocessing, feature engineering, and model evaluation, the XGB Regressor emerged as the best-performing model, demonstrating strong predictive accuracy. The findings provide actionable insights into the potential impact of dietary habits on health outcomes during the pandemic.</p>
+          <p class="project-date"><strong>Date:</strong> November 2023 - January 2024 (2 months)</p>
+        </div>
+      </article>
+
+      <article class="project-card">
+        <img src="bsc_thesis_img.jpg" alt="BSc Thesis project image" />
+        <div>
+          <h3 class="project-title">BSc Thesis: Sentiment Analysis in Online Food Delivery</h3>
+          <p class="project-desc"><strong>Description:</strong> The rapid growth of user-generated data, such as reviews and preferences, offers businesses new opportunities to refine strategies through sentiment analysis. This process identifies opinions and their polarity (positive, negative, neutral) using machine learning and lexical resources, helping businesses enhance customer satisfaction, marketing, product quality, and profitability. This study examines the potential of sentiment analysis in assessing consumer behavior in online food delivery. It includes a review of applications in the food and beverage industry (2011–2021) and an overview of top sentiment analysis tools. The analysis focuses on 300 Greek-language reviews from a leading online food delivery platform in Greece, offering insights for improving product quality, customer relationships, and strategies. The precision of two sentiment analysis tools is compared to human evaluation, highlighting areas of online orders that impact consumer satisfaction and need improvement.</p>
+          <p class="project-date"><strong>Date:</strong> January - July 2022 (6 months)</p>
+        </div>
+      </article>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">© <span id="y"></span> Nikolaos Fragkos</footer>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const toggleBtn = document.getElementById('toggleTheme');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const icon = toggleBtn.querySelector('i');
+      if (document.body.classList.contains('dark-mode')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    });
+  </script>
 </body>
 </html>
