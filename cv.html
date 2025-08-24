@@ -55,6 +55,13 @@
     .btn-toggle { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--soft); background: var(--soft); cursor: pointer; color: var(--text); margin-left: auto; }
     .btn-toggle:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
 
+    /* ------ Utility: Narrow width to match PDF page ------ */
+    .narrow {
+      max-width: 850px;        /* tweak 820–900px to perfectly match your PDF */
+      margin-left: auto;
+      margin-right: auto;
+    }
+
     /* ------ Title Block ------ */
     .page-head { margin-top: 26px; }
     .title-card { background: var(--card); border: 1px solid var(--soft); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
@@ -111,7 +118,7 @@
 
   <main class="container">
     <!-- Title block -->
-    <section class="page-head">
+    <section class="page-head narrow">
       <div class="title-card">
         <h1 class="page-title">Curriculum Vitae</h1>
         <p class="page-sub">View my latest CV below.</p>
@@ -119,7 +126,7 @@
     </section>
 
     <!-- CV block -->
-    <section class="cv-card">
+    <section class="cv-card narrow">
       <iframe class="cv-frame" src="Fragkos_CV_2.pdf#toolbar=0">
         This browser does not support PDFs. Please open the file manually.
       </iframe>
