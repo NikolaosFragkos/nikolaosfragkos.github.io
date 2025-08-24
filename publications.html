@@ -1,83 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Publications</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            max-width: 800px;
-            margin: 30px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        h1 {
-            text-align: center;
-            color: #444;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-        a {
-            color: #1a73e8;
-            text-decoration: none;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            margin-top: 20px;
-            background-color: #f4f4f4;
-        }
-        footer nav a {
-            text-decoration: none;
-            margin: 0 10px;
-            color: #1a73e8;
-            font-weight: bold;
-        }
-        footer nav a:hover {
-            color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Publications — Nikolaos Fragkos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
+  <style>
+    :root {
+      --bg: #f6f7fb; --card:#fff; --soft:#f0f2f8; --text:#1b1f2a; --muted:#4b5569;
+      --brand:#2f6dff; --brand-strong:#1e56e6; --accent:var(--brand);
+      --radius:16px; --shadow:0 8px 24px rgba(31,35,45,.08),0 2px 6px rgba(31,35,45,.06);
+    }
+    body.dark-mode {
+      --bg:#0b0c0f; --card:#111318; --soft:#171a21; --text:#e7e9ee; --muted:#a5adbd;
+      --brand:#6aa7ff; --brand-strong:#4c89ff; --accent:#528ee6;
+      --shadow:0 8px 24px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.2);
+    }
+    body {
+      margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;
+      color:var(--text); background:var(--bg); line-height:1.6;
+    }
+    .container{max-width:1040px;margin:0 auto;padding:24px}
+
+    /* Navbar */
+    .site-header{position:sticky;top:0;z-index:40;background:var(--card);border-bottom:1px solid var(--soft)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+    .nav-center{flex:1;display:flex;justify-content:center;gap:18px}
+    .nav a{color:var(--text);font-weight:500;opacity:.85} .nav a:hover{opacity:1}
+    .btn-toggle{padding:6px 10px;border-radius:8px;border:1px solid var(--soft);background:var(--soft);cursor:pointer;color:var(--text);margin-left:auto}
+    .btn-toggle:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
+
+    /* Title block */
+    .page-head{margin-top:26px}
+    .title-card{background:var(--card);border:1px solid var(--soft);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+    .page-title{margin:0;font-size:clamp(22px,2.2vw+10px,34px)}
+    .page-sub{margin:6px 0 0;color:var(--muted)}
+
+    /* Publications list */
+    .pubs {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .pubs li {
+      margin: 14px 0;
+      padding: 0 0 10px 0;
+      border-bottom: 1px solid var(--soft);
+    }
+    .pubs li:last-child {
+      border-bottom: none;
+    }
+    .pubs strong {
+      color: var(--brand);
+    }
+    .pubs a {
+      display: inline-block;
+      margin-top: 6px;
+      word-break: break-all;
+      color: var(--brand);   /* 🔹 always same blue as strong */
+    }
+    .pubs a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Publications block card with fade-in */
+    .card.pubs-card {
+      background: var(--card); 
+      border:1px solid var(--soft); 
+      border-radius: var(--radius); 
+      padding:22px; 
+      box-shadow: var(--shadow); 
+      opacity:0; 
+      transform:translateY(15px); 
+      animation:fadeInUp .8s ease forwards;
+      margin-top:18px;
+    }
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+
+    footer.site-footer{color:var(--muted);text-align:center;margin:28px 0}
+  </style>
 </head>
 <body>
-    <footer>
-        <nav>
-            <a href="index.html"><i class="fas fa-home"></i> Home</a> | 
-            <a href="publications.html"><i class="fas fa-book"></i> Publications</a> | 
-            <a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a> | 
-            <a href="cv.html"><i class="fas fa-file-alt"></i> CV</a>
-        </nav>
-    </footer>
-    <div class="container">
-        <h1>My Publications</h1>
-        <ul>
-            <li>
-                Fragkos, N.; Liapakis, A.; Ntaliani, M.; Ntalianis, F.; Costopoulou, C. <strong>A Sentiment Analysis Approach for Exploring Customer Reviews of Online Food Delivery Services: A Greek Case.</strong> Digital 2024, 4, 698-709. <a href="https://doi.org/10.3390/digital4030035" target="_blank">https://doi.org/10.3390/digital4030035</a>
-            </li>
-            <li>
-                Fragkos, N.; Liapakis, A.; Costopoulou, C.; Ntaliani, M. <strong>Sentiment Analysis in Online Food Delivery: A Greek Case Study.</strong> In Proceedings of the 10th International Conference on Information and Communication Technologies in Agriculture, Food and Environment (HAICTA 2022).<br>
-                <a href="https://ceur-ws.org/Vol-3293/paper7.pdf" target="_blank">https://ceur-ws.org/Vol-3293/paper7.pdf</a>
-            </li>
-        </ul>
+  <header class="site-header">
+    <div class="container nav">
+      <div class="nav-center">
+        <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
+        <a href="projects.html"><i class="fa-solid fa-diagram-project"></i> Projects</a>
+        <a href="cv.html"><i class="fa-solid fa-file-lines"></i> CV</a>
+      </div>
+      <button class="btn-toggle" id="toggleTheme"><i class="fa-solid fa-moon"></i></button>
     </div>
+  </header>
+
+  <main class="container">
+    <!-- Title block -->
+    <section class="page-head">
+      <div class="title-card">
+        <h1 class="page-title">My Publications</h1>
+        <p class="page-sub">Peer-reviewed articles and conference proceedings.</p>
+      </div>
+    </section>
+
+    <!-- Publications list block -->
+    <section class="card pubs-card">
+      <ul class="pubs">
+        <li>
+          Fragkos, N.; Liapakis, A.; Ntaliani, M.; Ntalianis, F.; Costopoulou, C.
+          <strong>A Sentiment Analysis Approach for Exploring Customer Reviews of Online Food Delivery Services: A Greek Case.</strong>
+          Digital 2024, 4, 698-709.<br>
+          <a href="https://doi.org/10.3390/digital4030035" target="_blank">https://doi.org/10.3390/digital4030035</a>
+        </li>
+        <li>
+          Fragkos, N.; Liapakis, A.; Costopoulou, C.; Ntaliani, M.
+          <strong>Sentiment Analysis in Online Food Delivery: A Greek Case Study.</strong>
+          In Proceedings of the 10th International Conference on Information and Communication Technologies in Agriculture, Food and Environment (HAICTA 2022).<br>
+          <a href="https://ceur-ws.org/Vol-3293/paper7.pdf" target="_blank">https://ceur-ws.org/Vol-3293/paper7.pdf</a>
+        </li>
+      </ul>
+    </section>
+
+    <footer class="site-footer">© <span id="y"></span> Nikolaos Fragkos</footer>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const toggleBtn = document.getElementById('toggleTheme');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const icon = toggleBtn.querySelector('i');
+      if(document.body.classList.contains('dark-mode')){icon.classList.replace('fa-moon','fa-sun');}
+      else{icon.classList.replace('fa-sun','fa-moon');}
+    });
+  </script>
 </body>
 </html>
