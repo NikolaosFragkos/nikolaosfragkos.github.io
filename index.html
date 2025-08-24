@@ -1,156 +1,185 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nikolaos Fragkos</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <!-- Animate.css -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <style>
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        header {
-            background: linear-gradient(45deg, #333, #555);
-            color: #fff;
-            text-align: center;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 800px;
-            margin: 20px auto;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        header h1 {
-            margin: 0;
-        }
-        main {
-            max-width: 800px;
-            margin: 30px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        img {
-            display: block;
-            margin: 0 auto 20px;
-            border-radius: 50%;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-        }
-        section h2 {
-            color: #444;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-        }
-        .news-container {
-            max-height: 200px;
-            overflow-y: scroll;
-            padding-right: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            background-color: #f9f9f9;
-        }
-        .news-container ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-        }
-        .news-container ul li {
-            margin-bottom: 20px;
-            padding: 10px;
-            border-left: 4px solid #1a73e8;
-            background-color: #fff;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        a {
-            color: #1a73e8;
-            text-decoration: none;
-            transition: color 0.3s ease, text-decoration 0.3s ease;
-        }
-        a:hover {
-            color: #0056b3;
-            text-decoration: underline;
-        }
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            margin-top: 20px;
-            background-color: #f4f4f4;
-        }
-        footer nav a {
-            text-decoration: none;
-            margin: 0 10px;
-            color: #1a73e8;
-            font-weight: bold;
-        }
-        footer nav a:hover {
-            color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nikolaos Fragkos</title>
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
+  <style>
+    /* ------ Theme ------ */
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --soft: #f0f2f8;
+      --text: #1b1f2a;
+      --muted: #4b5569;
+      --brand: #2f6dff;
+      --brand-strong: #1e56e6;
+      --accent: var(--brand);
+      --ring: rgba(47, 109, 255, 0.22);
+      --radius: 16px;
+      --shadow: 0 8px 24px rgba(31,35,45,0.08), 0 2px 6px rgba(31,35,45,0.06);
+    }
+
+    body.dark-mode {
+      --bg: #0b0c0f;
+      --card: #111318;
+      --soft: #171a21;
+      --text: #e7e9ee;
+      --muted: #a5adbd;
+      --brand: #6aa7ff;
+      --brand-strong: #4c89ff;
+      --accent: #528ee6; /* slightly darker blue for dark mode button */
+      --ring: rgba(106, 167, 255, 0.35);
+      --shadow: 0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    /* ------ Base ------ */
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a { color: var(--brand); text-decoration: none; }
+    body.dark-mode a { color: var(--text); }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 1040px; margin: 0 auto; padding: 24px; }
+
+    /* ------ Header / Nav ------ */
+    .site-header { position: sticky; top: 0; z-index: 40; background: var(--card); border-bottom: 1px solid var(--soft); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+    .nav-center { flex: 1; display: flex; justify-content: center; gap: 18px; }
+    .nav a { color: var(--text); text-decoration: none; font-weight: 500; opacity: 0.85; }
+    .nav a:hover { opacity: 1; }
+    .btn-toggle { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--soft); background: var(--soft); cursor: pointer; color: var(--text); margin-left: auto; }
+    .btn-toggle:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+
+    /* ------ Hero ------ */
+    .hero { display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: center; margin-top: 28px; padding: 28px; border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow); }
+    .avatar { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; display: block; border: 3px solid var(--soft); }
+    .intro h1 { margin: 0 0 8px; font-size: clamp(24px, 2.4vw + 12px, 36px); }
+    .intro p { margin: 8px 0 0; color: var(--muted); max-width: 70ch; }
+    .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
+    .btn { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; text-decoration: none; font-weight: 600; }
+
+    /* Button - same color as date */
+    .btn-primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
+    .btn-primary:hover { background: var(--brand-strong); border-color: var(--brand-strong); }
+
+    .btn-soft { background: var(--soft); color: var(--text); border: 1px solid var(--soft); }
+    .btn-soft:hover { border-color: var(--brand); }
+
+    /* ------ Sections ------ */
+    section { margin-top: 26px; }
+    .card { background: var(--card); border: 1px solid var(--soft); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
+    .section-title { margin: 0 0 14px; font-size: 18px; }
+
+    /* ------ News ------ */
+    .news { display: grid; gap: 12px; max-height: 360px; overflow: auto; padding-right: 6px; }
+    .news li { list-style: none; }
+    .item { display: grid; grid-template-columns: 120px 1fr; gap: 18px; align-items: start; padding: 14px; border-radius: 12px; background: var(--soft); border: 1px solid var(--soft); }
+    .date { font-weight: 600; color: var(--accent); white-space: nowrap; }
+    .bullet { margin: 0; }
+
+    .muted { color: var(--muted); }
+
+    /* ------ Footer ------ */
+    footer.site-footer { margin: 28px 0; color: var(--muted); font-size: 14px; text-align: center; }
+
+    /* ------ Responsive ------ */
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; text-align: center; }
+      .intro p { margin-left: auto; margin-right: auto; }
+      .cta-row { justify-content: center; }
+      .item { grid-template-columns: 1fr; }
+      .date { order: -1; }
+      .nav-center { flex-wrap: wrap; }
+    }
+  </style>
 </head>
 <body>
+  <!-- Header / Nav -->
+  <header class="site-header">
+    <div class="container nav">
+      <div class="nav-center">
+        <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
+        <a href="projects.html"><i class="fa-solid fa-diagram-project"></i> Projects</a>
+        <a href="cv.html"><i class="fa-solid fa-file-lines"></i> CV</a>
+      </div>
+      <button class="btn-toggle" id="toggleTheme"><i class="fa-solid fa-moon"></i></button>
+    </div>
+  </header>
 
-    <header>
+  <main class="container">
+    <!-- Hero -->
+    <section class="hero animate__animated animate__fadeInUp">
+      <img src="1705266697481.jpg" alt="Portrait of Nikolaos Fragkos" class="avatar" />
+      <div class="intro">
         <h1>Nikolaos Fragkos</h1>
-    </header>
-    <footer>
-        <nav>
-            <a href="index.html"><i class="fas fa-home"></i> Home</a> | 
-            <a href="publications.html"><i class="fas fa-book"></i> Publications</a> | 
-            <a href="projects.html"><i class="fas fa-project-diagram"></i> Projects</a> | 
-            <a href="cv.html"><i class="fas fa-file-alt"></i> CV</a>
-        </nav>
-    </footer>
-    <main>
-        <section class="animate__animated animate__fadeInUp">
-            <img src="1705266697481.jpg" alt="Round Image" width="150" height="150">
-            <div>
-                <p>Currently, I am pursuing a master's degree in 
-                    <a href="https://www.wur.nl/en/education-programmes/master/msc-programmes/msc-data-science-for-food-and-health.htm" target="_blank"><strong>Data Science for Food and Health</strong></a> 
-                    at 
-                    <a href="https://www.wur.nl/" target="_blank"><strong>Wageningen University and Research</strong></a>, 
-                    where I am honing advanced skills in data analysis, statistical modeling, and machine learning to address challenges in the agri-food sector.
-                </p>
-                <p>I hold a strong academic foundation in Agricultural Economics from the 
-                    <a href="https://www2.aua.gr/en" target="_blank"><strong>Agricultural University of Athens</strong></a>, 
-                    where I developed a deep understanding of economic principles in agriculture, providing the groundwork for my interdisciplinary expertise.
-                </p>
-            </div>
-        </section>
+        <p>
+          I am pursuing a master's degree in <a href="https://www.wur.nl/en/education-programmes/master/msc-programmes/msc-data-science-for-food-and-health.htm" target="_blank" rel="noopener"><strong>Data Science for Food and Health</strong></a> at
+          <a href="https://www.wur.nl/" target="_blank" rel="noopener"><strong>Wageningen University & Research</strong></a>.
+          My work connects data engineering, statistical modelling, and machine learning to solve problems in the agri-food domain.
+        </p>
+        <p class="muted">
+          Background in Agricultural Economics from the <a href="https://www2.aua.gr/en" target="_blank" rel="noopener"><strong>Agricultural University of Athens</strong></a>.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="projects.html"><i class="fa-solid fa-flask"></i> Explore Projects</a>
+          <a class="btn btn-soft" href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
+          <a class="btn btn-soft" href="cv.html"><i class="fa-solid fa-download"></i> CV</a>
+        </div>
+      </div>
+    </section>
 
-        <section class="animate__animated animate__fadeInUp">
-            <h2>Latest News</h2>
-            <div class="news-container">
-                <ul>
-                    <li><strong>August 2025:</strong> Student Assistant in Data Engineering for AI Crop Modeling</li>
-                    <li><strong>March 2025:</strong> Internship at Kraft Heinz as Culinary Data Analyst</li>
-                    <li><strong>March 2025:</strong> Completed and defended Thesis </li>
-                    <li><strong>November 2024:</strong> Teaching Assistant for the course 'Food Fraud'</li>
-                    <li><strong>September 2024:</strong>Teaching Assistant for the course 'Programming in Python'</li>
-                    <li><strong>September 2024:</strong> Began Thesis Project titled 'Artificial Intelligence and Citizen Science to Combat Food Fraud'</li>
-                    <li><strong>July 2024:</strong> Attended Summer School in Ghent, Belgium, organized by the TALLHEDA program, focusing on Precision Agriculture</li>
-                    <li><strong>November 2023:</strong> Achieved 3rd Place with the team at The Data Factory | Extended Realities Hackathon for Data Science Education 2023</li>
-                    <li><strong>September 2023:</strong> Started Master’s Degree in Data Science for Food and Health at Wageningen University</li>
-                    <li><strong>August 2023:</strong> Awarded John S. Latsis Scholarship for Master’s studies in Data Science for Food and Health</li>
-                    <li><strong>August 2023:</strong> Completed Military Service in the Hellenic Navy</li>
-                    <li><strong>September 2022:</strong> Graduated with Honors from the Agricultural University of Athens</li>
-                </ul>
-            </div>
-        </section>
-    </main>
+    <!-- Latest News -->
+    <section class="card animate__animated animate__fadeInUp animate__delay-1s">
+      <h2 class="section-title"><i class="fa-regular fa-newspaper"></i> Latest News</h2>
+      <ul class="news" aria-label="Latest updates">
+        <li><div class="item"><div class="date">August 2025</div><p class="bullet">Student Assistant in Data Engineering for AI-based Crop Modeling</p></div></li>
+        <li><div class="item"><div class="date">March 2025</div><p class="bullet">Internship at Kraft Heinz — Culinary Data Analyst</p></div></li>
+        <li><div class="item"><div class="date">March 2025</div><p class="bullet">Completed & defended thesis</p></div></li>
+        <li><div class="item"><div class="date">November 2024</div><p class="bullet">Teaching Assistant — <em>Food Fraud</em></p></div></li>
+        <li><div class="item"><div class="date">September 2024</div><p class="bullet">Teaching Assistant — <em>Programming in Python</em></p></div></li>
+        <li><div class="item"><div class="date">September 2024</div><p class="bullet">Began thesis project: <em>Artificial Intelligence & Citizen Science to Combat Food Fraud</em></p></div></li>
+        <li><div class="item"><div class="date">July 2024</div><p class="bullet">Summer School, Ghent (TALLHEDA) — Focus on Precision Agriculture</p></div></li>
+        <li><div class="item"><div class="date">November 2023</div><p class="bullet">3rd Place — The Data Factory | Extended Realities Hackathon for Data Science Education</p></div></li>
+        <li><div class="item"><div class="date">September 2023</div><p class="bullet">Started MSc — Data Science for Food & Health, Wageningen University</p></div></li>
+        <li><div class="item"><div class="date">August 2023</div><p class="bullet">Awarded John S. Latsis Scholarship (MSc studies)</p></div></li>
+        <li><div class="item"><div class="date">August 2023</div><p class="bullet">Completed military service — Hellenic Navy</p></div></li>
+        <li><div class="item"><div class="date">September 2022</div><p class="bullet">Graduated with Honors — Agricultural University of Athens</p></div></li>
+      </ul>
+    </section>
 
+    <!-- Footer -->
+    <footer class="site-footer">© <span id="y"></span> Nikolaos Fragkos</footer>
+  </main>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+    const toggleBtn = document.getElementById('toggleTheme');
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const icon = toggleBtn.querySelector('i');
+      if (document.body.classList.contains('dark-mode')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+      } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+      }
+    });
+  </script>
 </body>
 </html>
