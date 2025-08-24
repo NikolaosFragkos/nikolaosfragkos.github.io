@@ -27,7 +27,8 @@
     .site-header{position:sticky;top:0;z-index:40;background:var(--card);border-bottom:1px solid var(--soft)}
     .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
     .nav-center{flex:1;display:flex;justify-content:center;gap:18px}
-    .nav a{color:var(--text);font-weight:500;opacity:.85} .nav a:hover{opacity:1}
+    .nav a{color:var(--text);font-weight:500;opacity:.85;text-decoration:none}
+    .nav a:hover{opacity:1;text-decoration:none}
     .btn-toggle{padding:6px 10px;border-radius:8px;border:1px solid var(--soft);background:var(--soft);cursor:pointer;color:var(--text);margin-left:auto}
     .btn-toggle:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
 
@@ -38,32 +39,13 @@
     .page-sub{margin:6px 0 0;color:var(--muted)}
 
     /* Publications list */
-    .pubs {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    .pubs li {
-      margin: 14px 0;
-      padding: 0 0 10px 0;
-      border-bottom: 1px solid var(--soft);
-    }
-    .pubs li:last-child {
-      border-bottom: none;
-    }
-    .pubs strong {
-      color: var(--brand);
-    }
-    .pubs a {
-      display: inline-block;
-      margin-top: 6px;
-      word-break: break-all;
-      color: var(--brand);   /* 🔹 always same blue as strong */
-    }
-    .pubs a:hover {
-      text-decoration: underline;
-    }
-    
+    .pubs {list-style:none;padding:0;margin:0}
+    .pubs li {margin:14px 0;padding:0 0 10px 0;border-bottom:1px solid var(--soft)}
+    .pubs li:last-child {border-bottom:none}
+    .pubs strong {color:var(--brand)}
+    .pubs a {display:inline-block;margin-top:6px;word-break:break-all;color:var(--brand)}
+    .pubs a:hover {text-decoration:underline}
+
     /* Publications block card with fade-in */
     .card.pubs-card {
       background: var(--card); 
