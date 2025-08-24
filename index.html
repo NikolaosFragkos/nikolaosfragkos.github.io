@@ -34,7 +34,7 @@
       --muted: #a5adbd;
       --brand: #6aa7ff;
       --brand-strong: #4c89ff;
-      --accent: #528ee6; /* slightly darker blue for dark mode button */
+      --accent: #528ee6;
       --ring: rgba(106, 167, 255, 0.35);
       --shadow: 0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
     }
@@ -84,12 +84,30 @@
     .card { background: var(--card); border: 1px solid var(--soft); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
     .section-title { margin: 0 0 14px; font-size: 18px; }
 
+    /* News card fade-in */
+    .card.news-card { opacity: 0; transform: translateY(15px); animation: fadeInUp 0.8s ease forwards; }
+
     /* ------ News ------ */
     .news { display: grid; gap: 12px; max-height: 360px; overflow: auto; padding-right: 6px; }
     .news li { list-style: none; }
+                                                
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .item { display: grid; grid-template-columns: 120px 1fr; gap: 18px; align-items: start; padding: 14px; border-radius: 12px; background: var(--soft); border: 1px solid var(--soft); }
     .date { font-weight: 600; color: var(--accent); white-space: nowrap; }
     .bullet { margin: 0; }
+
+    /* Scrollbar styling */
+    .news::-webkit-scrollbar { width: 10px; }
+    .news::-webkit-scrollbar-track { background: var(--bg); }
+    .news::-webkit-scrollbar-thumb { background: var(--soft); border-radius: 8px; }
+    .news::-webkit-scrollbar-thumb:hover { background: var(--brand); }
+    body.dark-mode .news::-webkit-scrollbar-track { background: #000; }
+    body.dark-mode .news::-webkit-scrollbar-thumb { background: var(--soft); }
+    body.dark-mode .news::-webkit-scrollbar-thumb:hover { background: var(--brand); }
 
     .muted { color: var(--muted); }
 
@@ -144,12 +162,12 @@
     </section>
 
     <!-- Latest News -->
-    <section class="card animate__animated animate__fadeInUp animate__delay-1s">
+    <section class="card news-card">
       <h2 class="section-title"><i class="fa-regular fa-newspaper"></i> Latest News</h2>
       <ul class="news" aria-label="Latest updates">
-        <li><div class="item"><div class="date">August 2025</div><p class="bullet">Student Assistant in Data Engineering for AI-based Crop Modeling</p></div></li>
-        <li><div class="item"><div class="date">March 2025</div><p class="bullet">Internship at Kraft Heinz — Culinary Data Analyst</p></div></li>
-        <li><div class="item"><div class="date">March 2025</div><p class="bullet">Completed & defended thesis</p></div></li>
+        <li><div class="item"><div class="date">August 2025</div><p class="bullet"><strong>Student Assistant in Data Engineering for AI-based Crop Modeling</strong></p></div></li>
+        <li><div class="item"><div class="date">March 2025</div><p class="bullet"><strong>Internship at Kraft Heinz</strong> — Culinary Data Analyst</p></div></li>
+        <li><div class="item"><div class="date">March 2025</div><p class="bullet"><strong>Completed & defended thesis</strong></p></div></li>
         <li><div class="item"><div class="date">November 2024</div><p class="bullet">Teaching Assistant — <em>Food Fraud</em></p></div></li>
         <li><div class="item"><div class="date">September 2024</div><p class="bullet">Teaching Assistant — <em>Programming in Python</em></p></div></li>
         <li><div class="item"><div class="date">September 2024</div><p class="bullet">Began thesis project: <em>Artificial Intelligence & Citizen Science to Combat Food Fraud</em></p></div></li>
