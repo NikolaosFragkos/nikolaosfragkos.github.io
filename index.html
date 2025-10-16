@@ -54,6 +54,209 @@
       --ring: rgba(106, 167, 255, 0.35);
       --shadow: 0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
     }
+    /* Smooth scrolling for anchor links */
+    html { scroll-behavior: smooth; }
+
+    /* ===== Full-bleed animated hero ===== */
+    /* AFTER: shorter hero */
+    /* AFTER: shorter hero */
+    /* Make Vanta canvas truly cover the hero */
+    .hero-full { position: relative; overflow: hidden; contain: paint; }
+    .hero-full .vanta-canvas {
+      position: absolute !important;
+      inset: 0;
+      width: 100% !important;
+      height: 100% !important;
+      display: block !important;
+      z-index: 0 !important;
+    }
+
+    /* Keep hero content above the canvas */
+    .hero-inner, .hero-card, .scroll-cue { position: relative; z-index: 1; }
+
+    /* (If you still see patches) temporarily disable blur over WebGL */
+    @supports (backdrop-filter: blur(6px)) {
+      .scroll-cue { backdrop-filter: none; }
+    }
+
+
+    /* add this anywhere in your CSS */
+    #updates {
+      scroll-margin-top: 96px;  /* header is ~64px; add a little breathing room */
+    }
+
+    /* (optional) nudge the scroll cue up a bit since the hero is shorter */
+    /* --- Adjust scroll cue visibility based on theme --- */
+    .scroll-cue {
+      background: rgba(255, 255, 255, 0.25); /* default */
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      color: #fff;
+      backdrop-filter: blur(6px);
+    }
+
+    /* Light theme version: make it light gray with darker text */
+    body:not(.dark-mode) .scroll-cue {
+      background: rgba(200, 200, 210, 0.6);  /* gray background */
+      border-color: rgba(180, 180, 190, 0.7);
+      color: #1b1f2a;                         /* dark text for contrast */
+    }
+
+    body:not(.dark-mode) .scroll-cue:hover {
+      background: rgba(180, 180, 190, 0.8);
+      color: #000;
+    }
+    
+    /* Fixed-in-hero cue (stays at bottom center of hero area) */
+    .scroll-cue--fixed {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: auto;      /* was none — now clickable */
+      cursor: pointer;           /* hand cursor */
+      z-index: 5;
+    }
+        /* Scroll cue */
+    .scroll-cue {
+      position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
+      font-weight: 600; letter-spacing: .4px;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.35);
+      color: #fff; text-decoration: none;
+      padding: 8px 12px; border-radius: 999px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .scroll-cue:hover { text-decoration: none; background: rgba(255,255,255,.25); }
+
+    /* little bounce animation for the arrow */
+    .scroll-cue::before {
+      content: "↓ ";
+      display: inline-block;
+      animation: bob 1.6s ease-in-out infinite;
+    }
+    @keyframes bob {
+      0%, 100% { transform: translateY(-1px); }
+      50%      { transform: translateY(2px); }
+    }
+
+
+
+
+
+
+    .vtimeline {
+      position: relative;
+      padding: 6px 0 6px;
+      margin-top: 10px;
+    }
+
+    /* center line */
+    .vtimeline::before {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0; left: 50%;
+      width: 2px;
+      background: var(--soft);
+      transform: translateX(-50%);
+    }
+
+    /* item */
+    .vt-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 16px 0;
+      opacity: 0;                 /* will fade in */
+      transform: translateY(8px); /* will slide up */
+    }
+
+    /* dot */
+    /* dot with icon */
+    .vt-dot {
+      position: absolute;
+      left: 50%; top: 22px;
+      transform: translate(-50%, -50%);
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--brand) 20%, transparent);
+      border: 2px solid #fff;
+    }
+    .vt-dot:hover {
+      background: var(--accent);
+      transform: translate(-50%, -50%) scale(1.1);
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+
+    /* card */
+    .vt-card {
+      background: var(--soft);
+      border: 1px solid var(--soft);
+      border-radius: 14px;
+      box-shadow: var(--shadow);
+      padding: 14px;
+    }
+
+    .vt-date { font-weight: 700; color: var(--accent); margin-bottom: 4px; }
+    .vt-text { margin: 0; color: var(--text); }
+
+    /* alternate sides: odd on left, even on right */
+    .vt-item:nth-child(odd) .vt-card { grid-column: 1 / 2; }
+    .vt-item:nth-child(even) .vt-card { grid-column: 2 / 3; }
+
+    /* appear animation */
+    .vt-item.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+
+    /* responsive: stack to one column */
+    @media (max-width: 800px) {
+      .vtimeline::before { left: 24px; transform: none; }
+      .vt-item {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        padding-left: 44px;       /* space for the line/dot */
+      }
+      .vt-item .vt-card { grid-column: 1 / -1; }
+      .vt-dot { left: 24px; }
+    }
+
+    @keyframes hueShift {
+      0%   { filter: hue-rotate(0deg) saturate(1.1); transform: scale(1.02); }
+      100% { filter: hue-rotate(25deg) saturate(1.15); transform: scale(1.05); }
+    }
+
+    /* Content layout inside the hero */
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 24px;
+      align-items: center;
+      padding: 56px 24px;
+    }
+    
+    .hero-card {
+      background: color-mix(in oklab, var(--card) 86%, transparent);
+      border: 1px solid var(--soft);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; }
+    }
 
     /* ------ Base ------ */
     html, body { height: 100%; }
@@ -79,10 +282,35 @@
     .nav a:hover { opacity: 1; }
     .btn-toggle { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--soft); background: var(--soft); cursor: pointer; color: var(--text); margin-left: auto; }
     .btn-toggle:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-logo-img {
+      height: 55px;
+      width: auto;
+      border-radius: 8px; /* optional */
+      transition: transform 0.2s ease;
+    }
+
+    .nav-logo-img:hover {
+      transform: scale(1.05);
+    }
+    /* Dark mode: invert colors to make it black or dark */
+    /* When dark mode is active, swap to the dark version */
+    body.dark-mode .nav-logo-img {
+      content: url("Logo_2_trans.png");
+    } 
+    /* body.dark-mode .nav-logo-img {
+    filter: invert(1) brightness(0.8);
+    } 
+
+
 
     /* ------ Hero ------ */
     .hero { display: grid; grid-template-columns: 140px 1fr; gap: 24px; align-items: center; margin-top: 28px; padding: 28px; border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow); }
-    .avatar { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; display: block; border: 3px solid var(--soft); }
+    .avatar { width: 180px; height: 180px; border-radius: 50%; object-fit: cover; display: block; border: 3px solid var(--soft);transform: translateX(-35px); }
     .intro h1 { margin: 0 0 8px; font-size: clamp(24px, 2.4vw + 12px, 36px); }
     .intro p { margin: 8px 0 0; color: var(--muted); max-width: 70ch; }
     .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; }
@@ -145,7 +373,9 @@
   <!-- Header / Nav -->
   <header class="site-header">
     <div class="container nav">
-
+    <div class="nav-logo">
+      <img src="Logo_2_trans.png" alt="Logo" class="nav-logo-img">
+    </div>
       <div class="nav-center">
         <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a>
         <a href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
@@ -158,47 +388,174 @@
 
   <main class="container">
     <!-- Hero -->
-    <section class="hero animate__animated animate__fadeInUp">
-      <img src="1705266697481.jpg" alt="Portrait of Nikolaos Fragkos" class="avatar" />
-      <div class="intro">
-        <h1 class="name-with-logo">
-          <img src="Logo_2.png" alt="Logo" class="name-logo" />
-          Nikolaos Fragkos
-        </h1>
-        <p>
-          I am pursuing a master's degree in <a href="https://www.wur.nl/en/education-programmes/master/msc-programmes/msc-data-science-for-food-and-health.htm" target="_blank" rel="noopener"><strong>Data Science for Food and Health</strong></a> at
-          <a href="https://www.wur.nl/" target="_blank" rel="noopener"><strong>Wageningen University & Research</strong></a>.
-          My work connects data engineering, statistical modelling, and machine learning to solve problems in the agri-food domain.
-        </p>
-        <p class="muted">
-          Background in Agricultural Economics from the <a href="https://www2.aua.gr/en" target="_blank" rel="noopener"><strong>Agricultural University of Athens</strong></a>.
-        </p>
-        <div class="cta-row">
-          <a class="btn btn-primary" href="projects.html"><i class="fa-solid fa-flask"></i> Explore Projects</a>
-          <a class="btn btn-soft" href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
-          <a class="btn btn-soft" href="cv.html"><i class="fa-solid fa-download"></i> CV</a>
+    <!-- Full-bleed Animated Hero -->
+    <section class="hero-full" id="top">
+      <div class="container">
+        <div class="vanta-bg" aria-hidden="true"></div>
+
+          <div class="hero-inner">
+            <img src="1705266697481.jpg" alt="Portrait of Nikolaos Fragkos" class="avatar" />
+
+            <!-- Keep your existing text/CTAs, but nest them in a subtle glass card -->
+            <div class="hero-card intro">
+              <h1>
+                Nikolaos Fragkos
+              </h1>
+              <p>
+                I am pursuing a master's degree in
+                <a href="https://www.wur.nl/en/education-programmes/master/msc-programmes/msc-data-science-for-food-and-health.htm" target="_blank" rel="noopener"><strong>Data Science for Food and Health</strong></a>
+                at <a href="https://www.wur.nl/" target="_blank" rel="noopener"><strong>Wageningen University & Research</strong></a>.
+                My work connects data engineering, statistical modelling, and machine learning to solve problems in the agri-food domain.
+              </p>
+              <p class="muted">
+                Background in Agricultural Economics from the
+                <a href="https://www2.aua.gr/en" target="_blank" rel="noopener"><strong>Agricultural University of Athens</strong></a>.
+              </p>
+              <div class="cta-row">
+                <a class="btn btn-primary" href="projects.html"><i class="fa-solid fa-flask"></i> Explore Projects</a>
+                <a class="btn btn-soft" href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
+                <a class="btn btn-soft" href="cv.html"><i class="fa-solid fa-download"></i> CV</a>
+              </div>
+            </div>
+          </div>
+          <!-- Scroll cue to Latest News -->
+          <a href="#updates" class="scroll-cue scroll-cue--fixed">Explore my journey</a>
         </div>
+      </div>
+
+
+
+    </section>
+
+
+    <!-- Vertical Timeline -->
+    <section class="card news-card" id="updates">
+      <h2 class="section-title"><i class="fa-solid fa-route"></i> My Recent Journey</h2>
+
+      <div class="vtimeline" aria-label="Timeline of updates">
+        <!-- 1 -->
+        <article class="vt-item">
+          <div class="vt-dot" aria-hidden="true">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="vt-card">
+            <div class="vt-date">September 2025</div>
+            <p class="vt-text">Graduated MSc — Data Science for Food & Health, Wageningen University</p>
+          </div>
+        </article>
+
+        <!-- 2 -->
+        <article class="vt-item">
+          <div class="vt-dot" aria-hidden="true">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <div class="vt-card">
+            <div class="vt-date">August 2025</div>
+            <p class="vt-text">Student Assistant — Data Engineering for AI-based Crop Modeling</p>
+          </div>
+        </article>
+
+        <!-- 3 -->
+        <article class="vt-item">
+          <div class="vt-dot" aria-hidden="true">
+            <i class="fa-solid fa-briefcase"></i>
+          </div>
+          <div class="vt-card">
+            <div class="vt-date">March 2025</div>
+            <p class="vt-text">Internship at Kraft Heinz — Culinary Data Analyst</p>
+          </div>
+        </article>
+
+        <!-- 4 -->
+        <article class="vt-item">
+          <div class="vt-dot" aria-hidden="true">
+            <i class="fa-solid fa-chalkboard-teacher"></i>
+          </div>
+          <div class="vt-card">
+            <div class="vt-date">November 2024</div>
+            <p class="vt-text">Teaching Assistant — <em>Food Fraud</em></p>
+          </div>
+        </article>
+
+        <!-- 5 -->
+        <article class="vt-item">
+          <div class="vt-dot" aria-hidden="true">
+            <i class="fa-solid fa-chalkboard-teacher"></i>
+          </div>
+          <div class="vt-card">
+            <div class="vt-date">September 2024</div>
+            <p class="vt-text">Teaching Assistant — <em>Programming in Python</em></p>
+          </div>
+        </article>
+
+        <!-- 6 -->
+        <article class="vt-item">
+          <div class="vt-dot" aria-hidden="true">
+            <i class="fa-solid fa-satellite"></i>
+          </div>
+          <div class="vt-card">
+            <div class="vt-date">July 2024</div>
+            <p class="vt-text">Summer School — Precision Agriculture (Ghent, TALLHEDA)</p>
+          </div>
+        </article>
+
+        <!-- 7 -->
+        <article class="vt-item">
+          <div class="vt-dot" aria-hidden="true">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <div class="vt-card">
+            <div class="vt-date">November 2023</div>
+            <p class="vt-text">3rd Place — Data Factory Hackathon</p>
+          </div>
+        </article>
+
+        <!-- 8 -->
+        <article class="vt-item">
+          <div class="vt-dot" aria-hidden="true">
+            <i class="fa-solid fa-rocket"></i>
+          </div>
+          <div class="vt-card">
+            <div class="vt-date">September 2023</div>
+            <p class="vt-text">Started MSc — Data Science for Food & Health, Wageningen University</p>
+          </div>
+        </article>
+
+        <!-- 9 -->
+        <article class="vt-item">
+          <div class="vt-dot" aria-hidden="true">
+            <i class="fa-solid fa-medal"></i>
+          </div>
+          <div class="vt-card">
+            <div class="vt-date">August 2023</div>
+            <p class="vt-text">Awarded John S. Latsis Scholarship</p>
+          </div>
+        </article>
+
+        <!-- 10 -->
+        <article class="vt-item">
+          <div class="vt-dot" aria-hidden="true">
+            <i class="fa-solid fa-anchor"></i>
+          </div>
+          <div class="vt-card">
+            <div class="vt-date">August 2023</div>
+            <p class="vt-text">Completed Military Service — Hellenic Navy</p>
+          </div>
+        </article>
+
+        <!-- 11 -->
+        <article class="vt-item">
+          <div class="vt-dot" aria-hidden="true">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div class="vt-card">
+            <div class="vt-date">September 2022</div>
+            <p class="vt-text">Graduated with Honors — Agricultural University of Athens</p>
+          </div>
+        </article>
       </div>
     </section>
 
-    <!-- Latest News -->
-    <section class="card news-card">
-      <h2 class="section-title"><i class="fa-regular fa-newspaper"></i> Latest News</h2>
-      <ul class="news" aria-label="Latest updates">
-        <li><div class="item"><div class="date">August 2025</div><p class="bullet">Student Assistant in Data Engineering for AI-based Crop Modeling</p></div></li>
-        <li><div class="item"><div class="date">March 2025</div><p class="bullet">Internship at Kraft Heinz — Culinary Data Analyst</p></div></li>
-        <li><div class="item"><div class="date">March 2025</div><p class="bullet">Completed & defended thesis</p></div></li>
-        <li><div class="item"><div class="date">November 2024</div><p class="bullet">Teaching Assistant — <em>Food Fraud</em></p></div></li>
-        <li><div class="item"><div class="date">September 2024</div><p class="bullet">Teaching Assistant — <em>Programming in Python</em></p></div></li>
-        <li><div class="item"><div class="date">September 2024</div><p class="bullet">Began thesis project: <em>Artificial Intelligence & Citizen Science to Combat Food Fraud</em></p></div></li>
-        <li><div class="item"><div class="date">July 2024</div><p class="bullet">Summer School, Ghent (TALLHEDA) — Focus on Precision Agriculture</p></div></li>
-        <li><div class="item"><div class="date">November 2023</div><p class="bullet">3rd Place — The Data Factory | Extended Realities Hackathon for Data Science Education</p></div></li>
-        <li><div class="item"><div class="date">September 2023</div><p class="bullet">Started MSc — Data Science for Food & Health, Wageningen University</p></div></li>
-        <li><div class="item"><div class="date">August 2023</div><p class="bullet">Awarded John S. Latsis Scholarship (MSc studies)</p></div></li>
-        <li><div class="item"><div class="date">August 2023</div><p class="bullet">Completed military service — Hellenic Navy</p></div></li>
-        <li><div class="item"><div class="date">September 2022</div><p class="bullet">Graduated with Honors — Agricultural University of Athens</p></div></li>
-      </ul>
-    </section>
 
     <!-- Footer -->
     <footer class="site-footer">© <span id="y"></span> Nikolaos Fragkos</footer>
@@ -219,5 +576,121 @@
       }
     });
   </script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script>
+    const vantaTarget = document.querySelector('.hero-full');
+    let vantaEffect = null;
+
+    function vantaColors() {
+      const dark = document.body.classList.contains('dark-mode');
+      return dark
+        ? { backgroundColor: 0x0f1218, color: 0x4c89ff }
+        : { backgroundColor: 0xe9edf6, color: 0x1e56e6 };
+    }
+
+    function initVanta() {
+      if (vantaEffect) vantaEffect.destroy();
+      const { backgroundColor, color } = vantaColors();
+      vantaEffect = VANTA.NET({
+        el: vantaTarget,
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        points: 10.0,
+        maxDistance: 24.0,
+        spacing: 16.0,
+        color,
+        backgroundColor
+      });
+
+      // Ensure proper sizing right after attach
+      requestAnimationFrame(() => fixSize());
+      setTimeout(() => fixSize(), 0);
+    }
+
+    // NEW: force the canvas to match the hero's box, then call Vanta's resize
+    function fixSize() {
+      if (!vantaEffect || !vantaTarget) return;
+      const canvas = vantaTarget.querySelector('.vanta-canvas');
+      if (!canvas) return;
+      const rect = vantaTarget.getBoundingClientRect();
+      // Explicitly size the canvas to the hero's box (handles DPR)
+      const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      canvas.style.width  = rect.width + 'px';
+      canvas.style.height = rect.height + 'px';
+      canvas.width  = Math.floor(rect.width  * dpr);
+      canvas.height = Math.floor(rect.height * dpr);
+      vantaEffect.resize();
+    }
+
+    // Init once
+    initVanta();
+
+    // Resize on viewport changes
+    window.addEventListener('resize', fixSize);
+
+    // Resize whenever the hero’s box changes
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(fixSize);
+      ro.observe(vantaTarget);
+    }
+
+    // Resize when hero becomes visible (some browsers defer layout)
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) fixSize(); });
+      }, { threshold: 0.01 });
+      io.observe(vantaTarget);
+    }
+
+    // Resize after fonts & avatar load (layout shifts)
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(fixSize);
+    }
+    const avatar = document.querySelector('.avatar');
+    if (avatar && !avatar.complete) {
+      avatar.addEventListener('load', fixSize, { once: true });
+    }
+
+    // Re-init only when the theme toggles (keep your logic)
+    (function wireVantaToToggle(){
+      const toggleBtn = document.getElementById('toggleTheme');
+      if (!toggleBtn) return;
+      toggleBtn.addEventListener('click', () => {
+        // flip class/icon elsewhere; rebuild Vanta right after
+        setTimeout(initVanta, 0);
+      }, { once: false });
+    })();
+  </script>
+
+
+
+
+  <script>
+    (function(){
+      const items = document.querySelectorAll('.vt-item');
+
+      // If IntersectionObserver is available, reveal on scroll
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => {
+            if (e.isIntersecting) e.target.classList.add('is-visible');
+          });
+        }, { threshold: 0.12 });
+
+        items.forEach(el => io.observe(el));
+      } else {
+        // Fallback: show them immediately
+        items.forEach(el => el.classList.add('is-visible'));
+      }
+    })();
+  </script>
+
+
 </body>
 </html>
