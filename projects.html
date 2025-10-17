@@ -143,55 +143,6 @@
     .chip-tech { background: color-mix(in oklab, var(--brand) 12%, white 88%); border-color: color-mix(in oklab, var(--brand) 25%, white 75%); }
     .chip-domain { background: color-mix(in oklab, var(--soft) 90%, white 10%); }
     .chip-impact { background: color-mix(in oklab, #22c55e 18%, white 82%); border-color: color-mix(in oklab, #22c55e 35%, white 65%); }
-    /* ==== Chips: dark-mode contrast boost ==== */
-    /* Base chip */
-    body.dark-mode .chip{
-      background: rgba(255,255,255,0.08);
-      border-color: rgba(255,255,255,0.18);
-      color: var(--text);                  /* #e7e9ee from your vars */
-    }
-    body.dark-mode .chip:hover{
-      border-color: color-mix(in oklab, var(--brand) 45%, transparent);
-    }
-    
-    /* Icons inside chips: make them a touch brighter in dark */
-    body.dark-mode .chip i{ opacity: 1; }
-    
-    /* Tech chips (blue tint) */
-    body.dark-mode .chip-tech{
-      background: color-mix(in oklab, var(--brand) 26%, transparent 74%);
-      border-color: color-mix(in oklab, var(--brand) 55%, transparent 45%);
-      color: #e9efff; /* slightly brighter text for legibility */
-    }
-    
-    /* Domain chips (amber/teal—pick the one you use) */
-    /* If you went with AMBER: */
-    body.dark-mode .chip-domain{
-      background: color-mix(in oklab, #f59e0b 22%, transparent 78%);
-      border-color: color-mix(in oklab, #f59e0b 48%, transparent 52%);
-      color: #ffe8c2;
-    }
-    /* If you chose TEAL instead, swap the block above for this:
-    body.dark-mode .chip-domain{
-      background: color-mix(in oklab, #14b8a6 24%, transparent 76%);
-      border-color: color-mix(in oklab, #14b8a6 52%, transparent 48%);
-      color: #d6fffb;
-    }
-    */
-    
-    /* Impact chips (green) */
-    body.dark-mode .chip-impact{
-      background: color-mix(in oklab, #22c55e 22%, transparent 78%);
-      border-color: color-mix(in oklab, #22c55e 52%, transparent 48%);
-      color: #e9ffef;
-    }
-    
-    /* Focus visibility for keyboard users */
-    .chip:focus{
-      outline: 2px solid var(--brand);
-      outline-offset: 2px;
-      box-shadow: 0 0 0 2px color-mix(in oklab, var(--brand) 35%, transparent);
-    }
 
     /* --- Card hover polish + accent line --- */
     .project-card {
@@ -210,8 +161,16 @@
     /* small image polish on hover */
     .project-card img { transition: transform .3s ease; }
     .project-card:hover img { transform: scale(1.02); }
-    /* Footer */
-    footer.site-footer { color: var(--muted); text-align: center; margin: 28px 0; }
+    /* ------ Footer ------ */
+    footer.site-footer {
+      margin-top: 60px;          /* more top space */
+      padding: 24px 0;           /* equal top/bottom padding */
+      text-align: center;
+      font-size: 14px;
+      color: var(--muted);
+      border-top: 1px solid var(--soft);
+      background: var(--bg);
+    }
         /* === Page fade transition === */
     body {
       opacity: 0;
@@ -331,7 +290,6 @@
       </article>
     </section>
 
-    <!-- Footer -->
     <footer class="site-footer">© <span id="y"></span> Nikolaos Fragkos</footer>
   </main>
 
@@ -389,6 +347,9 @@
         }
       });
     </script>
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
+
 </body>
 </html>
-

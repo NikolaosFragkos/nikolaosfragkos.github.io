@@ -175,7 +175,15 @@
 
 
 
-    footer.site-footer{color:var(--muted);text-align:center;margin:28px 0}
+    footer.site-footer {
+      margin-top: 60px;          /* more top space */
+      padding: 24px 0;           /* equal top/bottom padding */
+      text-align: center;
+      font-size: 14px;
+      color: var(--muted);
+      border-top: 1px solid var(--soft);
+      background: var(--bg);
+    }
         /* === Page fade transition === */
       /* === Soft page fade transition === */
       body {
@@ -374,6 +382,10 @@
         }
       });
     </script>
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
+
 </body>
 </html>
 
