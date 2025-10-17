@@ -13,6 +13,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
+  <script>
+    (function () {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark-init');
+      }
+    })();
+  </script>
+
   <style>
         .name-with-logo {
       display: inline-flex;
@@ -41,6 +49,20 @@
       --radius: 16px;
       --shadow: 0 8px 24px rgba(31,35,45,0.08), 0 2px 6px rgba(31,35,45,0.06);
     }
+    /* Apply dark variables pre-paint if user previously chose dark */
+    html.dark-init {
+      --bg: #0b0c0f;
+      --card: #111318;
+      --soft: #171a21;
+      --text: #e7e9ee;
+      --muted: #a5adbd;
+      --brand: #6aa7ff;
+      --brand-strong: #4c89ff;
+      --accent: #528ee6;
+      --ring: rgba(106, 167, 255, 0.35);
+      --shadow: 0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
+    }
+
 
     body.dark-mode {
       --bg: #0b0c0f;
@@ -94,17 +116,24 @@
       backdrop-filter: blur(6px);
     }
 
-    /* Light theme version: make it light gray with darker text */
-    body:not(.dark-mode) .scroll-cue {
-      background: rgba(200, 200, 210, 0.6);  /* gray background */
-      border-color: rgba(180, 180, 190, 0.7);
-      color: #1b1f2a;                         /* dark text for contrast */
+    /* If dark is preselected, force dark-style pill before body class exists */
+    html.dark-init .scroll-cue {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.35);
+      color: #fff;
     }
 
-    body:not(.dark-mode) .scroll-cue:hover {
+    /* Only apply the light override when we truly are in light mode AND no dark-init */
+    html:not(.dark-init) body:not(.dark-mode) .scroll-cue {
+      background: rgba(200, 200, 210, 0.6);
+      border-color: rgba(180, 180, 190, 0.7);
+      color: #1b1f2a;
+    }
+    html:not(.dark-init) body:not(.dark-mode) .scroll-cue:hover {
       background: rgba(180, 180, 190, 0.8);
       color: #000;
     }
+
     
     /* Fixed-in-hero cue (stays at bottom center of hero area) */
     .scroll-cue--fixed {
@@ -274,34 +303,44 @@
 
     .container { max-width: 1040px; margin: 0 auto; padding: 24px; }
 
-    /* ------ Header / Nav ------ */
-    .site-header { position: sticky; top: 0; z-index: 40; background: var(--card); border-bottom: 1px solid var(--soft); }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .nav-center { flex: 1; display: flex; justify-content: center; gap: 18px; }
-    .nav a { color: var(--text); text-decoration: none; font-weight: 500; opacity: 0.85; }
-    .nav a:hover { opacity: 1; }
-    .btn-toggle { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--soft); background: var(--soft); cursor: pointer; color: var(--text); margin-left: auto; }
-    .btn-toggle:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-    }
+  /* ------ Header / Nav ------ */
+  html { overflow-y: scroll; }
 
-    .nav-logo-img {
-      height: 55px;
-      width: auto;
-      border-radius: 8px; /* optional */
-      transition: transform 0.2s ease;
-    }
+  .site-header { position: sticky; top: 0; z-index: 40; background: var(--card); border-bottom: 1px solid var(--soft); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
 
-    .nav-logo-img:hover {
-      transform: scale(1.05);
-    }
-    /* Dark mode: invert colors to make it black or dark */
-    /* When dark mode is active, swap to the dark version */
-    body.dark-mode .nav-logo-img {
-      content: url("Logo_2_trans.png");
-    } 
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    min-width: 150px;      /* ✅ match or slightly exceed logo width */
+  }
+
+  .nav-logo-img {
+    height: 55px;
+    width: 55px;          /* ✅ reserve width so it doesn't shift on load */
+    border-radius: 8px;
+    transition: transform 0.2s ease;
+  }
+  .nav-logo-img:hover { transform: scale(1.05); }
+  body.dark-mode .nav-logo-img { content: url("Logo_2_trans.png"); }
+
+  .nav-center { flex: 1; display: flex; justify-content: center; gap: 18px; }
+  .nav-center a {
+    color: var(--text);
+    font-weight: 500;
+    opacity: 0.85;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-center i { width: 1.25em; text-align: center; }
+  .nav-center a:hover,
+  .nav-center a.active { opacity: 1; color: var(--brand-strong); text-decoration: none; }
+
+  .btn-toggle { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--soft); background: var(--soft); cursor: pointer; color: var(--text); margin-left: auto; }
+  .btn-toggle:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
+
     /* body.dark-mode .nav-logo-img {
     filter: invert(1) brightness(0.8);
     } 
@@ -367,17 +406,19 @@
       .date { order: -1; }
       .nav-center { flex-wrap: wrap; }
     }
+
   </style>
 </head>
 <body>
   <!-- Header / Nav -->
+  <!-- Header / Nav -->
   <header class="site-header">
     <div class="container nav">
-    <div class="nav-logo">
-      <img src="Logo_2_trans.png" alt="Logo" class="nav-logo-img">
-    </div>
+      <div class="nav-logo">
+        <img src="Logo_2_trans.png" alt="Logo" class="nav-logo-img" loading="eager" decoding="async" fetchpriority="high">
+      </div>
       <div class="nav-center">
-        <a href="index.html" class="active"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
         <a href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
         <a href="projects.html"><i class="fa-solid fa-diagram-project"></i> Projects</a>
         <a href="cv.html"><i class="fa-solid fa-file-lines"></i> CV</a>
@@ -385,6 +426,7 @@
       <button class="btn-toggle" id="toggleTheme"><i class="fa-solid fa-moon"></i></button>
     </div>
   </header>
+
 
   <main class="container">
     <!-- Hero -->
@@ -412,9 +454,9 @@
                 <a href="https://www2.aua.gr/en" target="_blank" rel="noopener"><strong>Agricultural University of Athens</strong></a>.
               </p>
               <div class="cta-row">
-                <a class="btn btn-primary" href="projects.html"><i class="fa-solid fa-flask"></i> Explore Projects</a>
+                <a class="btn btn-primary" href="projects.html"><i class="fa-solid fa-puzzle-piece"></i> Explore Projects</a>
                 <a class="btn btn-soft" href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
-                <a class="btn btn-soft" href="cv.html"><i class="fa-solid fa-download"></i> CV</a>
+                <a class="btn btn-soft" href="cv.html"><i class="fa-solid fa-solid fa-file-lines"></i> CV</a>
               </div>
             </div>
           </div>
@@ -562,36 +604,64 @@
   </main>
 
   <script>
+    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
-    const toggleBtn = document.getElementById('toggleTheme');
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      const icon = toggleBtn.querySelector('i');
-      if (document.body.classList.contains('dark-mode')) {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-      } else {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
+
+    // If user had dark saved, apply body class now (html.dark-init was set in <head>)
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.documentElement.classList.contains('dark-init')) {
+        document.body.classList.add('dark-mode');
+      }
+      // Sync toggle icon on load
+      const toggleBtn = document.getElementById('toggleTheme');
+      const icon = toggleBtn?.querySelector('i');
+      if (icon) {
+        if (document.body.classList.contains('dark-mode')) {
+          icon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+          icon.classList.replace('fa-sun', 'fa-moon');
+        }
       }
     });
+
+    // Toggle + persist + keep <html> flag in sync (so next page paints correctly)
+    const toggleBtn = document.getElementById('toggleTheme');
+    toggleBtn?.addEventListener('click', () => {
+      const goingDark = !document.body.classList.contains('dark-mode');
+      document.body.classList.toggle('dark-mode', goingDark);
+      document.documentElement.classList.toggle('dark-init', goingDark);
+      localStorage.setItem('theme', goingDark ? 'dark' : 'light');
+
+      const icon = toggleBtn.querySelector('i');
+      if (goingDark) icon.classList.replace('fa-moon','fa-sun');
+      else icon.classList.replace('fa-sun','fa-moon');
+
+      // Re-init Vanta after theme change (function defined below)
+      if (typeof initVanta === 'function') setTimeout(initVanta, 0);
+    });
   </script>
+
   
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
   <script>
     const vantaTarget = document.querySelector('.hero-full');
     let vantaEffect = null;
 
+    function isDarkNow() {
+      // honor early flag OR body class
+      return document.documentElement.classList.contains('dark-init') ||
+            document.body.classList.contains('dark-mode');
+    }
+
     function vantaColors() {
-      const dark = document.body.classList.contains('dark-mode');
-      return dark
-        ? { backgroundColor: 0x0f1218, color: 0x4c89ff }
-        : { backgroundColor: 0xe9edf6, color: 0x1e56e6 };
+      return isDarkNow()
+        ? { backgroundColor: 0x0f1218, color: 0x4c89ff }   // dark
+        : { backgroundColor: 0xe9edf6, color: 0x1e56e6 };  // light
     }
 
     function initVanta() {
+      if (!vantaTarget) return;
       if (vantaEffect) vantaEffect.destroy();
       const { backgroundColor, color } = vantaColors();
       vantaEffect = VANTA.NET({
@@ -607,19 +677,15 @@
         color,
         backgroundColor
       });
-
-      // Ensure proper sizing right after attach
-      requestAnimationFrame(() => fixSize());
-      setTimeout(() => fixSize(), 0);
+      requestAnimationFrame(fixSize);
+      setTimeout(fixSize, 0);
     }
 
-    // NEW: force the canvas to match the hero's box, then call Vanta's resize
     function fixSize() {
       if (!vantaEffect || !vantaTarget) return;
       const canvas = vantaTarget.querySelector('.vanta-canvas');
       if (!canvas) return;
       const rect = vantaTarget.getBoundingClientRect();
-      // Explicitly size the canvas to the hero's box (handles DPR)
       const dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
       canvas.style.width  = rect.width + 'px';
       canvas.style.height = rect.height + 'px';
@@ -628,45 +694,31 @@
       vantaEffect.resize();
     }
 
-    // Init once
-    initVanta();
+    // Ensure correct theme BEFORE init (convert html.dark-init -> body.dark-mode)
+    document.addEventListener('DOMContentLoaded', () => {
+      if (document.documentElement.classList.contains('dark-init')) {
+        document.body.classList.add('dark-mode');
+      }
+      initVanta();
+    });
 
-    // Resize on viewport changes
     window.addEventListener('resize', fixSize);
-
-    // Resize whenever the hero’s box changes
     if ('ResizeObserver' in window) {
-      const ro = new ResizeObserver(fixSize);
-      ro.observe(vantaTarget);
+      new ResizeObserver(fixSize).observe(vantaTarget);
     }
-
-    // Resize when hero becomes visible (some browsers defer layout)
     if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
+      new IntersectionObserver((entries) => {
         entries.forEach(e => { if (e.isIntersecting) fixSize(); });
-      }, { threshold: 0.01 });
-      io.observe(vantaTarget);
+      }, { threshold: 0.01 }).observe(vantaTarget);
     }
-
-    // Resize after fonts & avatar load (layout shifts)
-    if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(fixSize);
-    }
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fixSize);
     const avatar = document.querySelector('.avatar');
-    if (avatar && !avatar.complete) {
-      avatar.addEventListener('load', fixSize, { once: true });
-    }
+    if (avatar && !avatar.complete) avatar.addEventListener('load', fixSize, { once: true });
 
-    // Re-init only when the theme toggles (keep your logic)
-    (function wireVantaToToggle(){
-      const toggleBtn = document.getElementById('toggleTheme');
-      if (!toggleBtn) return;
-      toggleBtn.addEventListener('click', () => {
-        // flip class/icon elsewhere; rebuild Vanta right after
-        setTimeout(initVanta, 0);
-      }, { once: false });
-    })();
+    // Keep colors correct when returning via bfcache
+    window.addEventListener('pageshow', () => { initVanta(); });
   </script>
+
 
 
 
@@ -691,6 +743,23 @@
     })();
   </script>
 
+  <script>
+      // Fade in when the page loads
+      window.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('fade-in');
+      });
 
+      // Fade out smoothly when navigating away
+      document.querySelectorAll('a[href]').forEach(link => {
+        const url = link.getAttribute('href');
+        if (!url.startsWith('#') && !url.startsWith('mailto') && !url.startsWith('tel')) {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.body.classList.remove('fade-in');
+            setTimeout(() => { window.location.href = url; }, 250);
+          });
+        }
+      });
+    </script>
 </body>
 </html>

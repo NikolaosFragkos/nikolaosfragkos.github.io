@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects — Nikolaos Fragkos</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+  <script>
+    (function () {
+      if (localStorage.getItem('theme') === 'dark') {
+        // Use an early flag on <html> so CSS variables switch before paint
+        document.documentElement.classList.add('dark-init');
+      }
+    })();
+  </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
   <style>
     /* ------ Theme ------ */
@@ -31,7 +40,20 @@
       --accent: #528ee6;
       --shadow: 0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
     }
-
+    /* Apply dark variables pre-paint if user previously chose dark */
+    html.dark-init {
+      --bg: #0b0c0f;
+      --card: #111318;
+      --soft: #171a21;
+      --text: #e7e9ee;
+      --muted: #a5adbd;
+      --brand: #6aa7ff;
+      --brand-strong: #4c89ff;
+      --accent: #528ee6;
+      --shadow: 0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
+    }
+    /* If you swap logos in dark mode, keep them consistent on first paint too */
+    html.dark-init .nav-logo-img { content: url("Logo_2_trans.png"); }
     /* ------ Base ------ */
     html, body { height: 100%; }
     body {
@@ -47,19 +69,49 @@
     .container { max-width: 1040px; margin: 0 auto; padding: 24px; }
 
     /* ------ Header / Nav ------ */
+    html { overflow-y: scroll; }
+
     .site-header { position: sticky; top: 0; z-index: 40; background: var(--card); border-bottom: 1px solid var(--soft); }
     .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      min-width: 150px;      /* ✅ match or slightly exceed logo width */
+    }
+
+    .nav-logo-img {
+      height: 55px;
+      width: 55px;          /* ✅ reserve width so it doesn't shift on load */
+      border-radius: 8px;
+      transition: transform 0.2s ease;
+    }
+
+    .nav-logo-img:hover { transform: scale(1.05); }
+    body.dark-mode .nav-logo-img { content: url("Logo_2_trans.png"); }
+
     .nav-center { flex: 1; display: flex; justify-content: center; gap: 18px; }
-    .nav a { color: var(--text); font-weight: 500; opacity: 0.85; }
-    .nav a:hover { opacity: 1; }
+    .nav-center a {
+      color: var(--text);
+      font-weight: 500;
+      opacity: 0.85;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-center i { width: 1.25em; text-align: center; }
+    .nav-center a:hover,
+    .nav-center a.active { opacity: 1; color: var(--brand-strong); text-decoration: none; }
+
     .btn-toggle { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--soft); background: var(--soft); cursor: pointer; color: var(--text); margin-left: auto; }
     .btn-toggle:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
-
+    
     /* ------ Page Title ------ */
-    .page-head { margin-top: 26px; }
-    .title-card { background: var(--card); border: 1px solid var(--soft); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
-    .page-title { margin: 0; font-size: clamp(22px, 2.2vw + 10px, 34px); }
-    .page-sub { margin: 6px 0 0; color: var(--muted); }
+    .page-head{margin-top:26px}
+    .title-card{background:var(--card);border:1px solid var(--soft);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
+    .page-title{margin:0;font-size:clamp(22px,2.2vw+10px,34px)}
+    .page-sub{margin:6px 0 0;color:var(--muted)}
 
     /* ------ Projects ------ */
     .projects { display: grid; gap: 16px; margin-top: 18px; }
@@ -78,15 +130,58 @@
     .btn { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; font-weight: 600; text-decoration: none; }
     .btn-primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
     .btn-primary:hover { background: var(--brand-strong); border-color: var(--brand-strong); }
+    /* --- Chips / tags --- */
+    .chips { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 10px; }
+    .chip {
+      display:inline-flex; align-items:center; gap:6px;
+      padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600;
+      border:1px solid var(--soft); background:var(--soft); color:var(--text);
+    }
+    .chip i { font-size:12px; opacity:.8 }
 
+    /* variants */
+    .chip-tech { background: color-mix(in oklab, var(--brand) 12%, white 88%); border-color: color-mix(in oklab, var(--brand) 25%, white 75%); }
+    .chip-domain { background: color-mix(in oklab, var(--soft) 90%, white 10%); }
+    .chip-impact { background: color-mix(in oklab, #22c55e 18%, white 82%); border-color: color-mix(in oklab, #22c55e 35%, white 65%); }
+
+    /* --- Card hover polish + accent line --- */
+    .project-card {
+      position:relative;
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      border-color: var(--soft);
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 24px rgba(31,35,45,0.12), 0 4px 10px rgba(31,35,45,0.08);
+      border-color: color-mix(in oklab, var(--brand) 35%, var(--soft));
+    }
+
+
+    /* small image polish on hover */
+    .project-card img { transition: transform .3s ease; }
+    .project-card:hover img { transform: scale(1.02); }
     /* Footer */
     footer.site-footer { color: var(--muted); text-align: center; margin: 28px 0; }
+        /* === Page fade transition === */
+    body {
+      opacity: 0;
+      transition: opacity 0.4s ease-in-out;
+    }
+
+    /* When page is fully loaded */
+    body.fade-in {
+      opacity: 1;
+    }
   </style>
 </head>
 <body>
   <!-- Header / Nav -->
   <header class="site-header">
     <div class="container nav">
+      <div class="nav-logo">
+        <img src="Logo_2_trans.png" alt="Logo" class="nav-logo-img" loading="eager" decoding="async" fetchpriority="high">
+      </div>
       <div class="nav-center">
         <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
         <a href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
@@ -97,12 +192,14 @@
     </div>
   </header>
 
+
+
   <main class="container">
     <!-- Page title -->
     <section class="page-head">
       <div class="title-card">
         <h1 class="page-title">My Projects</h1>
-        <p class="page-sub">Selected work across computer vision, data engineering, and applied ML in food & health.</p>
+        <p class="page-sub">Selected work in computer vision, data acquisition, data engineering and applied machine learning for food & health.</p>
       </div>
     </section>
 
@@ -114,6 +211,12 @@
           <h3 class="project-title">MSc Thesis Project: AI and Citizen Science to combat food fraud</h3>
           <p class="project-desc"><strong>Description:</strong> This project focused on leveraging computer vision techniques to detect food fraud related to the geographical origin of bananas. RGB image data were sourced from the iNaturalist platform and processed using two state-of-the-art models, Grounding-DINO and Grounded-SAM, to streamline the detection and segmentation of banana bunches from their backgrounds. Subsequently, a Convolutional Neural Network (CNN) was developed, utilizing the pretrained MobileNet model, to classify and analyze the isolated banana images with precision. This approach demonstrated the potential for automated and scalable solutions to address food fraud issues.</p>
           <p class="project-date"><strong>Date:</strong> September 2024 - March 2025 (6 months)</p>
+          <div class="chips">
+            <span class="chip chip-tech"><i class="fa-brands fa-python"></i>Python</span>
+            <span class="chip chip-tech"><i class="fa-solid fa-microchip"></i>CNN</span>
+            <span class="chip chip-tech"><i class="fa-solid fa-object-group"></i>Image Segmentation</span>
+            <span class="chip chip-domain"><i class="fa-solid fa-lemon"></i>Food Fraud</span>
+          </div>
         </div>
       </article>
 
@@ -123,6 +226,13 @@
           <h3 class="project-title">Creation of Database for Dietary Supplements</h3>
           <p class="project-desc"><strong>Description:</strong> Dietary supplements are a key part of the Dutch population’s nutrient intake, but accurate and comprehensive data is crucial for monitoring. This project, conducted in collaboration with the National Institute for Public Health and the Environment of Netherlands (RIVM), developed a web scraping pipeline to automate real-time extraction of dietary supplement data from three major Dutch retail websites: Etos, Kruidvat, and Vitamin Store. Using tools like Beautiful Soup and Scrapy, we extracted, cleaned, and standardized data on 1753 unique supplements with over 500 ingredients. The pipeline reduced manual effort, ensured high accuracy, and significantly enhanced the coverage of supplement data compared to existing databases.</p>
           <p class="project-date"><strong>Date:</strong> May - July 2024 (2 months)</p>
+          <div class="chips">
+            <span class="chip chip-tech"><i class="fa-brands fa-python"></i>Python</span>
+            <span class="chip chip-tech"><i class="fa-solid fa-spider"></i>Scrapy</span>
+            <span class="chip chip-tech"><i class="fa-solid fa-code"></i>BeautifulSoup</span>
+            <span class="chip chip-tech"><i class="fa-solid fa-database"></i>Data Engineering</span>
+            <span class="chip chip-domain"><i class="fa-solid fa-utensils"></i>Nutrition</span>
+          </div>
         </div>
       </article>
 
@@ -132,6 +242,12 @@
           <h3 class="project-title">Prediction of Food Consumption to Reduce Food Waste</h3>
           <p class="project-desc"><strong>Description:</strong> This project, conducted in collaboration with Wastewatchers, focused on minimizing food waste by leveraging consumer behavior data provided by Wastewatchers. For a specific location, models were developed using PyCaret and advanced time series analysis to forecast daily consumption trends and the consumption of the most wasted products. By predicting consumption, the project aimed to indirectly predict waste and identify opportunities to reduce it. The workflow included data cleaning, feature engineering, and stacked modeling, with accuracy as the primary evaluation criterion. The models outperformed alternative approaches, offering actionable insights to optimize production processes and reduce food waste effectively.</p>
           <p class="project-date"><strong>Date:</strong> March - May 2024 (2 months)</p>
+          <div class="chips">
+            <span class="chip chip-tech"><i class="fa-brands fa-python"></i>Python</span>
+            <span class="chip chip-tech"><i class="fa-solid fa-wave-square"></i>Time Series</span>
+            <span class="chip chip-tech"><i class="fa-solid fa-gears"></i>PyCaret</span>
+            <span class="chip chip-domain"><i class="fa-solid fa-recycle"></i>Food Waste Reduction</span>
+          </div>
         </div>
       </article>
 
@@ -141,6 +257,12 @@
           <h3 class="project-title">Prediction of COVID-19 Mortality Using Food Intake Data</h3>
           <p class="project-desc"><strong>Description:</strong> This study investigated the relationship between food intake and COVID-19 mortality rates across 170 countries, using data from Kaggle and the Food and Agriculture Organization (FAO). The project applied Machine Learning (ML) techniques to predict COVID-19 death rates based on dietary patterns and identify the most effective predictive model for decision-making. Through data preprocessing, feature engineering, and model evaluation, the XGB Regressor emerged as the best-performing model, demonstrating strong predictive accuracy. The findings provide actionable insights into the potential impact of dietary habits on health outcomes during the pandemic.</p>
           <p class="project-date"><strong>Date:</strong> November 2023 - January 2024 (2 months)</p>
+          <div class="chips">
+            <span class="chip chip-tech"><i class="fa-brands fa-python"></i>Python</span>
+            <span class="chip chip-tech"><i class="fa-solid fa-chart-line"></i>Predictive Modelling</span>
+            <span class="chip chip-tech"><i class="fa-solid fa-database"></i>Data Engineering</span>
+            <span class="chip chip-domain"><i class="fa-solid fa-utensils"></i>Nutrition</span>
+          </div>
         </div>
       </article>
 
@@ -150,6 +272,12 @@
           <h3 class="project-title">BSc Thesis: Sentiment Analysis in Online Food Delivery</h3>
           <p class="project-desc"><strong>Description:</strong> The rapid growth of user-generated data, such as reviews and preferences, offers businesses new opportunities to refine strategies through sentiment analysis. This process identifies opinions and their polarity (positive, negative, neutral) using machine learning and lexical resources, helping businesses enhance customer satisfaction, marketing, product quality, and profitability. This study examines the potential of sentiment analysis in assessing consumer behavior in online food delivery. It includes a review of applications in the food and beverage industry (2011–2021) and an overview of top sentiment analysis tools. The analysis focuses on 300 Greek-language reviews from a leading online food delivery platform in Greece, offering insights for improving product quality, customer relationships, and strategies. The precision of two sentiment analysis tools is compared to human evaluation, highlighting areas of online orders that impact consumer satisfaction and need improvement.</p>
           <p class="project-date"><strong>Date:</strong> January - July 2022 (6 months)</p>
+          <div class="chips">
+            <span class="chip chip-tech"><i class="fa-brands fa-python"></i>Python</span>
+            <span class="chip chip-tech"><i class="fa-solid fa-language"></i>NLP</span>
+            <span class="chip chip-tech"><i class="fa-solid fa-comment-dots"></i>Sentiment Analysis</span>
+            <span class="chip chip-domain"><i class="fa-solid fa-motorcycle"></i>Online Food Delivery</span>
+          </div>
         </div>
       </article>
     </section>
@@ -159,19 +287,58 @@
   </main>
 
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-    const toggleBtn = document.getElementById('toggleTheme');
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      const icon = toggleBtn.querySelector('i');
-      if (document.body.classList.contains('dark-mode')) {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-      } else {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-      }
-    });
-  </script>
+      // On load, if we pre-flagged dark, also set body class & icon
+      document.addEventListener('DOMContentLoaded', () => {
+        const hadDark = document.documentElement.classList.contains('dark-init');
+        if (hadDark) document.body.classList.add('dark-mode');
+
+        const toggleBtn = document.getElementById('toggleTheme');
+        if (!toggleBtn) return;
+
+        // Sync icon on initial paint
+        const icon = toggleBtn.querySelector('i');
+        if (document.body.classList.contains('dark-mode')) {
+          icon.classList.replace('fa-moon','fa-sun');
+        } else {
+          icon.classList.replace('fa-sun','fa-moon');
+        }
+
+        // Toggle + persist
+        toggleBtn.addEventListener('click', () => {
+          const goingDark = !document.body.classList.contains('dark-mode');
+          document.body.classList.toggle('dark-mode', goingDark);
+          localStorage.setItem('theme', goingDark ? 'dark' : 'light');
+
+          // Keep <html> flag in sync for the next navigation
+          document.documentElement.classList.toggle('dark-init', goingDark);
+
+          // Update icon
+          const i = toggleBtn.querySelector('i');
+          if (goingDark) { i.classList.replace('fa-moon','fa-sun'); }
+          else { i.classList.replace('fa-sun','fa-moon'); }
+
+          // If you use Vanta on this page, re-init for new colors
+          if (typeof initVanta === 'function') setTimeout(initVanta, 0);
+        });
+      });
+    </script>
+    <script>
+      // Fade in when the page loads
+      window.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('fade-in');
+      });
+
+      // Fade out smoothly when navigating away
+      document.querySelectorAll('a[href]').forEach(link => {
+        const url = link.getAttribute('href');
+        if (!url.startsWith('#') && !url.startsWith('mailto') && !url.startsWith('tel')) {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.body.classList.remove('fade-in');
+            setTimeout(() => { window.location.href = url; }, 250);
+          });
+        }
+      });
+    </script>
 </body>
 </html>

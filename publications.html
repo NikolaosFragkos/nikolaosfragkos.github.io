@@ -10,6 +10,14 @@
   <title>Publications — Nikolaos Fragkos</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
+  <script>
+    (function () {
+      if (localStorage.getItem('theme') === 'dark') {
+        // Use an early flag on <html> so CSS variables switch before paint
+        document.documentElement.classList.add('dark-init');
+      }
+    })();
+  </script>
   <style>
     :root {
       --bg: #f6f7fb; --card:#fff; --soft:#f0f2f8; --text:#1b1f2a; --muted:#4b5569;
@@ -21,20 +29,63 @@
       --brand:#6aa7ff; --brand-strong:#4c89ff; --accent:#528ee6;
       --shadow:0 8px 24px rgba(0,0,0,.35),0 2px 6px rgba(0,0,0,.2);
     }
+    /* Apply dark variables pre-paint if user previously chose dark */
+    html.dark-init {
+      --bg: #0b0c0f;
+      --card: #111318;
+      --soft: #171a21;
+      --text: #e7e9ee;
+      --muted: #a5adbd;
+      --brand: #6aa7ff;
+      --brand-strong: #4c89ff;
+      --accent: #528ee6;
+      --shadow: 0 8px 24px rgba(0,0,0,0.35), 0 2px 6px rgba(0,0,0,0.2);
+    }
+    /* If you swap logos in dark mode, keep them consistent on first paint too */
+    html.dark-init .nav-logo-img { content: url("Logo_2_trans.png"); }
     body {
       margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial;
       color:var(--text); background:var(--bg); line-height:1.6;
     }
     .container{max-width:1040px;margin:0 auto;padding:24px}
 
-    /* Navbar */
-    .site-header{position:sticky;top:0;z-index:40;background:var(--card);border-bottom:1px solid var(--soft)}
-    .nav{display:flex;align-items:center;justify-content:space-between;height:64px}
-    .nav-center{flex:1;display:flex;justify-content:center;gap:18px}
-    .nav a{color:var(--text);font-weight:500;opacity:.85;text-decoration:none}
-    .nav a:hover{opacity:1;text-decoration:none}
-    .btn-toggle{padding:6px 10px;border-radius:8px;border:1px solid var(--soft);background:var(--soft);cursor:pointer;color:var(--text);margin-left:auto}
-    .btn-toggle:hover{background:var(--brand);color:#fff;border-color:var(--brand)}
+    /* ------ Header / Nav ------ */
+    html { overflow-y: scroll; }
+
+    .site-header { position: sticky; top: 0; z-index: 40; background: var(--card); border-bottom: 1px solid var(--soft); }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      min-width: 150px;      /* ✅ match or slightly exceed logo width */
+    }
+
+    .nav-logo-img {
+      height: 55px;
+      width: 55px;          /* ✅ reserve width so it doesn't shift on load */
+      border-radius: 8px;
+      transition: transform 0.2s ease;
+    }
+    .nav-logo-img:hover { transform: scale(1.05); }
+    body.dark-mode .nav-logo-img { content: url("Logo_2_trans.png"); }
+
+    .nav-center { flex: 1; display: flex; justify-content: center; gap: 18px; }
+    .nav-center a {
+      color: var(--text);
+      font-weight: 500;
+      opacity: 0.85;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-center i { width: 1.25em; text-align: center; }
+    .nav-center a:hover,
+    .nav-center a.active { opacity: 1; color: var(--brand-strong); text-decoration: none; }
+
+    .btn-toggle { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--soft); background: var(--soft); cursor: pointer; color: var(--text); margin-left: auto; }
+    .btn-toggle:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
 
     /* Title block */
     .page-head{margin-top:26px}
@@ -63,13 +114,92 @@
       margin-top:18px;
     }
     @keyframes fadeInUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+    /* === Publications: cards, groups, icons, animation === */
+    .pub-year {
+      margin-top: 24px;
+      padding-top: 6px;
+      border-top: 1px solid var(--soft);
+    }
+    .pub-year h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      color: var(--muted);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .pub-year h3::before {
+      content: "•";
+      color: var(--brand);
+      font-weight: 700;
+    }
+
+    .pub-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+
+    .pub-card {
+      background: var(--card);
+      border: 1px solid var(--soft);
+      border-radius: var(--radius);
+      padding: 14px 16px;
+      box-shadow: var(--shadow);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+      opacity: 0; transform: translateY(10px); /* will fade in via JS */
+    }
+    .pub-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(31,35,45,.12), 0 4px 10px rgba(31,35,45,.08);
+      border-color: color-mix(in oklab, var(--brand) 30%, var(--soft));
+    }
+
+    .pub-title { margin: 0; font-weight: 700; color: var(--text); }
+    .pub-meta { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+    .pub-venue { font-style: italic; }
+
+    .pub-actions {
+      display: flex; gap: 10px; margin-top: 8px;
+    }
+    .pub-actions a {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 10px; border-radius: 999px;
+      background: var(--soft); border: 1px solid var(--soft);
+      color: var(--text); text-decoration: none; font-size: 13px;
+    }
+    .pub-actions a:hover {
+      border-color: var(--brand); text-decoration: none;
+    }
+
+    /* fade-in class toggled by IntersectionObserver */
+    .pub-card.is-visible {
+      opacity: 1; transform: translateY(0);
+      transition: opacity .5s ease, transform .5s ease;
+    }
+
+
+
 
     footer.site-footer{color:var(--muted);text-align:center;margin:28px 0}
+        /* === Page fade transition === */
+      /* === Soft page fade transition === */
+      body {
+        opacity: 0;
+        filter: blur(6px);
+        transition:
+          opacity 0.6s ease-in-out,
+          filter 0.8s ease-in-out;
+      }
+
+      body.fade-in {
+        opacity: 1;
+        filter: blur(0);
+      }
+
   </style>
 </head>
 <body>
+  <!-- Header / Nav -->
   <header class="site-header">
     <div class="container nav">
+      <div class="nav-logo">
+        <img src="Logo_2_trans.png" alt="Logo" class="nav-logo-img" loading="eager" decoding="async" fetchpriority="high">
+      </div>
       <div class="nav-center">
         <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
         <a href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
@@ -79,6 +209,8 @@
       <button class="btn-toggle" id="toggleTheme"><i class="fa-solid fa-moon"></i></button>
     </div>
   </header>
+
+
 
   <main class="container">
     <!-- Title block -->
@@ -91,35 +223,157 @@
 
     <!-- Publications list block -->
     <section class="card pubs-card">
-      <ul class="pubs">
-        <li>
-          Fragkos, N.; Liapakis, A.; Ntaliani, M.; Ntalianis, F.; Costopoulou, C.
-          <strong>A Sentiment Analysis Approach for Exploring Customer Reviews of Online Food Delivery Services: A Greek Case.</strong>
-          Digital 2024, 4, 698-709.<br>
-          <a href="https://doi.org/10.3390/digital4030035" target="_blank">https://doi.org/10.3390/digital4030035</a>
-        </li>
-        <li>
-          Fragkos, N.; Liapakis, A.; Costopoulou, C.; Ntaliani, M.
-          <strong>Sentiment Analysis in Online Food Delivery: A Greek Case Study.</strong>
-          In Proceedings of the 10th International Conference on Information and Communication Technologies in Agriculture, Food and Environment (HAICTA 2022).<br>
-          <a href="https://ceur-ws.org/Vol-3293/paper7.pdf" target="_blank">https://ceur-ws.org/Vol-3293/paper7.pdf</a>
-        </li>
-      </ul>
+      <!-- 2025 -->
+      <div class="pub-year" id="y2025">
+        <h3><i class="fa-solid fa-calendar"></i> 2025</h3>
+        <ul class="pub-list">
+
+          <li class="pub-card">
+            <h4 class="pub-title">
+              The Role of AI in Combating Food Fraud: A Systematic Literature Review
+            </h4>
+            <p class="pub-meta">
+              Fragkos, N.; Bouzembrak, Y.; Erasmus, S. — 
+              <span class="pub-venue">Critical Reviews in Food Science and Food Safety</span> (Under Review)
+            </p>
+            <div class="pub-actions">
+              <a href="#" class="disabled" title="Under Review - No Link">
+                <i class="fa-solid fa-hourglass-half"></i> Under Review
+              </a>
+            </div>
+          </li>
+
+          <li class="pub-card">
+            <h4 class="pub-title">
+              RGB Image-Based Origin Authentication of Bananas with Convolutional Neural Networks and Citizen Science Data
+            </h4>
+            <p class="pub-meta">
+              Fragkos, N.; Bouzembrak, Y.; Erasmus, S.; Soares, F. —
+              <span class="pub-venue">Food Control</span> (Under Review)
+            </p>
+            <div class="pub-actions">
+              <a href="#" class="disabled" title="Under Review - No Link">
+                <i class="fa-solid fa-hourglass-half"></i> Under Review
+              </a>
+            </div>
+          </li>
+
+        </ul>
+      </div>
+
+      <!-- 2024 -->
+      <div class="pub-year" id="y2024">
+        <h3><i class="fa-solid fa-calendar"></i> 2024</h3>
+        <ul class="pub-list">
+          <li class="pub-card">
+            <h4 class="pub-title">
+              A Sentiment Analysis Approach for Exploring Customer Reviews of Online Food Delivery Services: A Greek Case
+            </h4>
+            <p class="pub-meta">
+              Fragkos, N.; Liapakis, A.; Ntaliani, M.; Ntalianis, F.; Costopoulou, C. —
+              <span class="pub-venue">Digital</span>, 4, 698–709 (2024)
+            </p>
+            <div class="pub-actions">
+              <a href="https://doi.org/10.3390/digital4030035" target="_blank" rel="noopener">
+                <i class="fa-solid fa-link"></i> DOI
+              </a>
+              <!-- If you have a PDF, add it here -->
+              <!-- <a href="paper.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf"></i> PDF</a> -->
+              <!-- If you have code/data -->
+              <!-- <a href="https://github.com/..." target="_blank" rel="noopener"><i class="fa-solid fa-code"></i> Code</a> -->
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 2022 -->
+      <div class="pub-year" id="y2022">
+        <h3><i class="fa-solid fa-calendar"></i> 2022</h3>
+        <ul class="pub-list">
+          <li class="pub-card">
+            <h4 class="pub-title">
+              Sentiment Analysis in Online Food Delivery: A Greek Case Study
+            </h4>
+            <p class="pub-meta">
+              Fragkos, N.; Liapakis, A.; Costopoulou, C.; Ntaliani, M. —
+              <span class="pub-venue">Proceedings of HAICTA 2022</span>
+            </p>
+          </li>
+        </ul>
+      </div>
     </section>
+
 
     <footer class="site-footer">© <span id="y"></span> Nikolaos Fragkos</footer>
   </main>
 
   <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-    const toggleBtn = document.getElementById('toggleTheme');
-    toggleBtn.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
+    // On load, if we pre-flagged dark, also set body class & icon
+    document.addEventListener('DOMContentLoaded', () => {
+      const hadDark = document.documentElement.classList.contains('dark-init');
+      if (hadDark) document.body.classList.add('dark-mode');
+
+      const toggleBtn = document.getElementById('toggleTheme');
+      if (!toggleBtn) return;
+
+      // Sync icon on initial paint
       const icon = toggleBtn.querySelector('i');
-      if(document.body.classList.contains('dark-mode')){icon.classList.replace('fa-moon','fa-sun');}
-      else{icon.classList.replace('fa-sun','fa-moon');}
+      if (document.body.classList.contains('dark-mode')) {
+        icon.classList.replace('fa-moon','fa-sun');
+      } else {
+        icon.classList.replace('fa-sun','fa-moon');
+      }
+
+      // Toggle + persist
+      toggleBtn.addEventListener('click', () => {
+        const goingDark = !document.body.classList.contains('dark-mode');
+        document.body.classList.toggle('dark-mode', goingDark);
+        localStorage.setItem('theme', goingDark ? 'dark' : 'light');
+
+        // Keep <html> flag in sync for the next navigation
+        document.documentElement.classList.toggle('dark-init', goingDark);
+
+        // Update icon
+        const i = toggleBtn.querySelector('i');
+        if (goingDark) { i.classList.replace('fa-moon','fa-sun'); }
+        else { i.classList.replace('fa-sun','fa-moon'); }
+
+        // If you use Vanta on this page, re-init for new colors
+        if (typeof initVanta === 'function') setTimeout(initVanta, 0);
+      });
     });
   </script>
+  <script>
+    (function(){
+      const cards = document.querySelectorAll('.pub-card');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+        }, { threshold: 0.12 });
+        cards.forEach(c => io.observe(c));
+      } else {
+        cards.forEach(c => c.classList.add('is-visible'));
+      }
+    })();
+  </script>
+  <script>
+      // Fade in when the page loads
+      window.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('fade-in');
+      });
+
+      // Fade out smoothly when navigating away
+      document.querySelectorAll('a[href]').forEach(link => {
+        const url = link.getAttribute('href');
+        if (!url.startsWith('#') && !url.startsWith('mailto') && !url.startsWith('tel')) {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.body.classList.remove('fade-in');
+            setTimeout(() => { window.location.href = url; }, 250);
+          });
+        }
+      });
+    </script>
 </body>
 </html>
 
