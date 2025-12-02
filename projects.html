@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Google tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-97PSV3Z1DM"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  
-    gtag('config', 'G-97PSV3Z1DM');
-  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects — Nikolaos Fragkos</title>
@@ -125,7 +116,7 @@
     /* ------ Projects ------ */
     .projects { display: grid; gap: 16px; margin-top: 18px; }
     .project-card { background: var(--card); border: 1px solid var(--soft); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); display: grid; grid-template-columns: 220px 1fr; gap: 18px; }
-    .project-card img { width: 220px; height: 160px; object-fit: cover; border-radius: 12px; display: block; border: 1px solid var(--soft); }
+    .project-card img { width: 220px; height: 180px; object-fit: cover; border-radius: 12px; display: block; border: 1px solid var(--soft); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.18);}
     .project-title { margin: 0 0 8px; color: var(--brand); font-size: 18px; }
     .project-desc { margin: 0; color: var(--text); text-align: justify; }
     .project-date { margin-top: 10px; color: var(--muted); font-size: 14px; }
@@ -140,18 +131,51 @@
     .btn-primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
     .btn-primary:hover { background: var(--brand-strong); border-color: var(--brand-strong); }
     /* --- Chips / tags --- */
-    .chips { display:flex; flex-wrap:wrap; gap:8px; margin:8px 0 10px; }
     .chip {
       display:inline-flex; align-items:center; gap:6px;
       padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600;
       border:1px solid var(--soft); background:var(--soft); color:var(--text);
     }
     .chip i { font-size:12px; opacity:.8 }
+    /* Highlight active chip without changing original color */
+    .chip.active-filter {
+      border-width: 2px;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 50%, transparent);
+    }
+
+    .chip {
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .chip:hover {
+      transform: scale(1.05);
+      border-color: var(--accent);
+      /* KEEP original background + text color */
+    }
+
 
     /* variants */
     .chip-tech { background: color-mix(in oklab, var(--brand) 12%, white 88%); border-color: color-mix(in oklab, var(--brand) 25%, white 75%); }
     .chip-domain { background: color-mix(in oklab, var(--soft) 90%, white 10%); }
     .chip-impact { background: color-mix(in oklab, #22c55e 18%, white 82%); border-color: color-mix(in oklab, #22c55e 35%, white 65%); }
+    
+    .active-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 18px;
+      align-items: center;
+    }
+
+    .active-chips-label {
+      font-size: 13px;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+
+
 
     /* --- Card hover polish + accent line --- */
     .project-card {
@@ -271,96 +295,180 @@
       </div>
     </section>
 
+    <div id="active-chips" class="active-chips"></div>
+
     <!-- Projects list -->
     <section class="projects">
-      <article class="project-card">
+      <article class="project-card" data-tags="python apsim data-eng ai crop">
         <img src="data_eng_img.png" alt="AI-based crop modelling project image" />
         <div>
           <h3 class="project-title">AI-based Crop Modelling and Data Engineering (FieldBigData Project)</h3>
           <p class="project-desc"><strong>Description:</strong> As part of the FieldBigData project at Wageningen University & Research (WUR), this work focuses on developing data engineering pipelines for AI-driven crop modelling. Using the APSIM (Agricultural Production Systems sIMulator) tool, large-scale agricultural simulations are generated and processed to extract only relevant variables for model integration. The goal is to support predictive models of crop growth and yield estimation using heterogeneous environmental and management data. This project bridges simulation modelling, data preprocessing, and machine learning, contributing to smarter agricultural decision support systems.</p>
           <p class="project-date"><strong>Date:</strong> October 2025 – Present</p>
           <div class="chips">
-            <span class="chip chip-tech"><i class="fa-brands fa-python"></i>Python</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-leaf"></i>APSIM</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-database"></i>Data Engineering</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-brain"></i>AI Modelling</span>
-            <span class="chip chip-domain"><i class="fa-solid fa-seedling"></i>Crop Science</span>
+            <span class="chip chip-tech" data-filter="python">
+              <i class="fa-brands fa-python"></i>Python
+            </span>
+            <span class="chip chip-tech" data-filter="apsim">
+              <i class="fa-solid fa-leaf"></i>APSIM
+            </span>
+            <span class="chip chip-tech" data-filter="data-eng">
+              <i class="fa-solid fa-database"></i>Data Engineering
+            </span>
+            <span class="chip chip-tech" data-filter="ai">
+              <i class="fa-solid fa-brain"></i>AI Modelling
+            </span>
+            <span class="chip chip-domain" data-filter="crop">
+              <i class="fa-solid fa-seedling"></i>Crop Science
+            </span>
           </div>
         </div>
       </article>
 
-      <article class="project-card">
+      <article class="project-card" data-tags="python cnn img-segm fraud">
         <img src="thesis_img.jpg" alt="MSc Thesis Project image" />
         <div>
           <h3 class="project-title">MSc Thesis Project: AI and Citizen Science to combat food fraud</h3>
           <p class="project-desc"><strong>Description:</strong> This project focused on leveraging computer vision techniques to detect food fraud related to the geographical origin of bananas. RGB image data were sourced from the iNaturalist platform and processed using two state-of-the-art models, Grounding-DINO and Grounded-SAM, to streamline the detection and segmentation of banana bunches from their backgrounds. Subsequently, a Convolutional Neural Network (CNN) was developed, utilizing the pretrained MobileNet model, to classify and analyze the isolated banana images with precision. This approach demonstrated the potential for automated and scalable solutions to address food fraud issues.</p>
           <p class="project-date"><strong>Date:</strong> September 2024 - March 2025 (6 months)</p>
           <div class="chips">
-            <span class="chip chip-tech"><i class="fa-brands fa-python"></i>Python</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-microchip"></i>CNN</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-object-group"></i>Image Segmentation</span>
-            <span class="chip chip-domain"><i class="fa-solid fa-lemon"></i>Food Fraud</span>
+            <span class="chip chip-tech" data-filter="python">
+              <i class="fa-brands fa-python"></i>Python
+            </span>
+            <span class="chip chip-tech" data-filter="cnn">
+              <i class="fa-solid fa-microchip"></i>CNN
+            </span>
+            <span class="chip chip-tech" data-filter="img-segm">
+              <i class="fa-solid fa-object-group"></i>Image Segmentation
+            </span>
+            <span class="chip chip-domain" data-filter="fraud">
+              <i class="fa-solid fa-shield-halved"></i>Food Fraud
+            </span>
           </div>
         </div>
       </article>
 
-      <article class="project-card">
+      <article class="project-card" data-tags="python scraping scrapy beautifulsoup data-eng nutrition">
         <img src="supl_db_img.jpg" alt="Dietary supplements database project image" />
         <div>
           <h3 class="project-title">Creation of Database for Dietary Supplements</h3>
           <p class="project-desc"><strong>Description:</strong> Dietary supplements are a key part of the Dutch population’s nutrient intake, but accurate and comprehensive data is crucial for monitoring. This project, conducted in collaboration with the National Institute for Public Health and the Environment of Netherlands (RIVM), developed a web scraping pipeline to automate real-time extraction of dietary supplement data from three major Dutch retail websites: Etos, Kruidvat, and Vitamin Store. Using tools like Beautiful Soup and Scrapy, we extracted, cleaned, and standardized data on 1753 unique supplements with over 500 ingredients. The pipeline reduced manual effort, ensured high accuracy, and significantly enhanced the coverage of supplement data compared to existing databases.</p>
           <p class="project-date"><strong>Date:</strong> May - July 2024 (2 months)</p>
           <div class="chips">
-            <span class="chip chip-tech"><i class="fa-brands fa-python"></i>Python</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-spider"></i>Scrapy</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-code"></i>BeautifulSoup</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-database"></i>Data Engineering</span>
-            <span class="chip chip-domain"><i class="fa-solid fa-utensils"></i>Nutrition</span>
+            <span class="chip chip-tech" data-filter="python">
+              <i class="fa-brands fa-python"></i>Python
+            </span>
+            <span class="chip chip-tech" data-filter="scrapy">
+              <i class="fa-solid fa-spider"></i>Scrapy
+            </span>
+            <span class="chip chip-tech" data-filter="beautifulsoup">
+              <i class="fa-solid fa-code"></i>BeautifulSoup
+            </span>
+            <span class="chip chip-tech" data-filter="data-eng">
+              <i class="fa-solid fa-database"></i>Data Engineering
+            </span>
+            <span class="chip chip-domain" data-filter="nutrition">
+              <i class="fa-solid fa-utensils"></i>Nutrition
+            </span>
           </div>
         </div>
       </article>
 
-      <article class="project-card">
+      <article class="project-card" data-tags="python timeseries pycaret waste food">
         <img src="waste_img.jpg" alt="Food consumption prediction project image" />
         <div>
           <h3 class="project-title">Prediction of Food Consumption to Reduce Food Waste</h3>
           <p class="project-desc"><strong>Description:</strong> This project, conducted in collaboration with Wastewatchers, focused on minimizing food waste by leveraging consumer behavior data provided by Wastewatchers. For a specific location, models were developed using PyCaret and advanced time series analysis to forecast daily consumption trends and the consumption of the most wasted products. By predicting consumption, the project aimed to indirectly predict waste and identify opportunities to reduce it. The workflow included data cleaning, feature engineering, and stacked modeling, with accuracy as the primary evaluation criterion. The models outperformed alternative approaches, offering actionable insights to optimize production processes and reduce food waste effectively.</p>
           <p class="project-date"><strong>Date:</strong> March - May 2024 (2 months)</p>
           <div class="chips">
-            <span class="chip chip-tech"><i class="fa-brands fa-python"></i>Python</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-wave-square"></i>Time Series</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-gears"></i>PyCaret</span>
-            <span class="chip chip-domain"><i class="fa-solid fa-recycle"></i>Food Waste Reduction</span>
+            <span class="chip chip-tech" data-filter="python">
+              <i class="fa-brands fa-python"></i>Python
+            </span>
+            <span class="chip chip-tech" data-filter="timeseries">
+              <i class="fa-solid fa-wave-square"></i>Time Series
+            </span>
+            <span class="chip chip-tech" data-filter="pycaret">
+              <i class="fa-solid fa-gears"></i>PyCaret
+            </span>
+            <span class="chip chip-domain" data-filter="waste">
+              <i class="fa-solid fa-recycle"></i>Food Waste Reduction
+            </span>
+          </div>
+      </article>
+
+      <article class="project-card" data-tags="xr unity data-viz education">
+        <img src="xr_ds_hackathon.png" alt="Extended reality and data science in education project image" />
+        <div>
+          <h3 class="project-title">Extended Reality for Data Science Education (Data Factory Hackathon)</h3>
+          <p class="project-desc">
+            <strong>Description:</strong> During the Data Factory Hackathon at Wageningen University &amp; Research in December 2023, our team
+            developed a virtual reality (XR) concept for teaching data science. The idea was to create an interactive 3D
+            environment where students and lecturers can literally “grab” and explore data. For example, instead of looking at a
+            static PCA plot on a slide, users can walk around a 3D scatter plot, select individual points, and inspect how they
+            move when switching between principal components. This immersive interaction aims to make abstract concepts like PCA
+            more intuitive, while also allowing students to test and deepen their understanding through direct manipulation of the
+            data. Our prototype concept was awarded <strong>3rd place</strong>.
+          </p>
+          <p class="project-date"><strong>Date:</strong> December 2023</p>
+          <div class="chips">
+            <span class="chip chip-tech"  data-filter="unity">
+              <i class="fa-brands fa-unity"></i>Unity
+            </span>
+            <span class="chip chip-tech"  data-filter="xr">
+              <i class="fa-solid fa-vr-cardboard"></i>Extended Reality
+            </span>
+            <span class="chip chip-tech"  data-filter="data-viz">
+              <i class="fa-solid fa-chart-line"></i>Data Visualisation
+            </span>
+            <span class="chip chip-domain" data-filter="education">
+              <i class="fa-solid fa-users"></i>Data Science Education
+            </span>
           </div>
         </div>
       </article>
 
-      <article class="project-card">
+      <article class="project-card" data-tags="python dashboard covid viz time-series">
         <img src="covid_img.jpg" alt="COVID-19 mortality prediction project image" />
         <div>
           <h3 class="project-title">Prediction of COVID-19 Mortality Using Food Intake Data</h3>
           <p class="project-desc"><strong>Description:</strong> This study investigated the relationship between food intake and COVID-19 mortality rates across 170 countries, using data from Kaggle and the Food and Agriculture Organization (FAO). The project applied Machine Learning (ML) techniques to predict COVID-19 death rates based on dietary patterns and identify the most effective predictive model for decision-making. Through data preprocessing, feature engineering, and model evaluation, the XGB Regressor emerged as the best-performing model, demonstrating strong predictive accuracy. The findings provide actionable insights into the potential impact of dietary habits on health outcomes during the pandemic.</p>
           <p class="project-date"><strong>Date:</strong> November 2023 - January 2024 (2 months)</p>
           <div class="chips">
-            <span class="chip chip-tech"><i class="fa-brands fa-python"></i>Python</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-chart-line"></i>Predictive Modelling</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-database"></i>Data Engineering</span>
-            <span class="chip chip-domain"><i class="fa-solid fa-utensils"></i>Nutrition</span>
+            <span class="chip chip-tech" data-filter="python">
+              <i class="fa-brands fa-python"></i>Python
+            </span>
+            <span class="chip chip-tech" data-filter="modelling">
+              <i class="fa-solid fa-chart-line"></i>Predictive Modelling
+            </span>
+            <span class="chip chip-tech" data-filter="data-eng">
+              <i class="fa-solid fa-database"></i>Data Engineering
+            </span>
+            <span class="chip chip-domain" data-filter="nutrition">
+              <i class="fa-solid fa-utensils"></i>Nutrition
+            </span>
           </div>
         </div>
       </article>
 
-      <article class="project-card">
+      <article class="project-card" data-tags="python nlp sentiment food-delivery">
         <img src="bsc_thesis_img.jpg" alt="BSc Thesis project image" />
         <div>
           <h3 class="project-title">BSc Thesis: Sentiment Analysis in Online Food Delivery</h3>
           <p class="project-desc"><strong>Description:</strong> The rapid growth of user-generated data, such as reviews and preferences, offers businesses new opportunities to refine strategies through sentiment analysis. This process identifies opinions and their polarity (positive, negative, neutral) using machine learning and lexical resources, helping businesses enhance customer satisfaction, marketing, product quality, and profitability. This study examines the potential of sentiment analysis in assessing consumer behavior in online food delivery. It includes a review of applications in the food and beverage industry (2011–2021) and an overview of top sentiment analysis tools. The analysis focuses on 300 Greek-language reviews from a leading online food delivery platform in Greece, offering insights for improving product quality, customer relationships, and strategies. The precision of two sentiment analysis tools is compared to human evaluation, highlighting areas of online orders that impact consumer satisfaction and need improvement.</p>
           <p class="project-date"><strong>Date:</strong> January - July 2022 (6 months)</p>
           <div class="chips">
-            <span class="chip chip-tech"><i class="fa-brands fa-python"></i>Python</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-language"></i>NLP</span>
-            <span class="chip chip-tech"><i class="fa-solid fa-comment-dots"></i>Sentiment Analysis</span>
-            <span class="chip chip-domain"><i class="fa-solid fa-motorcycle"></i>Online Food Delivery</span>
+            <span class="chip chip-tech" data-filter="python">
+              <i class="fa-brands fa-python"></i>Python
+            </span>
+            <span class="chip chip-tech" data-filter="nlp">
+              <i class="fa-solid fa-language"></i>NLP
+            </span>
+            <span class="chip chip-tech" data-filter="sentiment">
+              <i class="fa-solid fa-comment-dots"></i>Sentiment Analysis
+            </span>
+            <span class="chip chip-domain" data-filter="food-delivery">
+              <i class="fa-solid fa-motorcycle"></i>Online Food Delivery
+            </span>
           </div>
         </div>
       </article>
@@ -426,7 +534,117 @@
     <script>
       document.getElementById('y').textContent = new Date().getFullYear();
     </script>
+    <script>
+      (function () {
+        const cards = Array.from(document.querySelectorAll(".project-card"));
+        const chips = Array.from(document.querySelectorAll(".project-card .chip"));
+
+        let activeFilter = null;
+
+        function applyFilter(filter) {
+          cards.forEach(card => {
+            const tags = (card.dataset.tags || "").split(/\s+/);
+            const match = !filter || filter === "all" || tags.includes(filter);
+            card.style.display = match ? "grid" : "none";
+          });
+        }
+
+        function clearActiveChips() {
+          chips.forEach(chip => chip.classList.remove("active-filter"));
+        }
+
+        chips.forEach(chip => {
+          chip.addEventListener("click", () => {
+            const filter = chip.dataset.filter;
+            // toggle behaviour: click again to reset
+            if (activeFilter === filter) {
+              activeFilter = null;
+              clearActiveChips();
+              applyFilter(null);
+            } else {
+              activeFilter = filter;
+              clearActiveChips();
+              chip.classList.add("active-filter");
+              applyFilter(filter);
+            }
+          });
+        });
+      })();
+    </script>
+    <script>
+    (function () {
+      const cards = document.querySelectorAll(".project-card");
+      const chips = document.querySelectorAll(".chip[data-filter]");
+      const activeArea = document.getElementById("active-chips");
+
+      const activeSet = new Set();
+
+      function updateActiveChipsDisplay() {
+        activeArea.innerHTML = "";
+
+        if (activeSet.size > 0) {
+          const label = document.createElement("span");
+          label.className = "active-chips-label";
+          label.textContent = "Active filters:";
+          activeArea.appendChild(label);
+        }
+
+        [...activeSet].forEach(originalChip => {
+          const clone = originalChip.cloneNode(true);
+          clone.classList.add("active-filter");
+
+          // ⬅️ Make clones clickable to unselect
+          clone.style.cursor = "pointer";
+          clone.addEventListener("click", () => {
+            activeSet.delete(originalChip);
+            originalChip.classList.remove("active-filter");
+            updateActiveChipsDisplay();
+            filterProjects();
+          });
+
+          activeArea.appendChild(clone);
+        });
+      }
+
+      function filterProjects() {
+        if (activeSet.size === 0) {
+          cards.forEach(card => card.style.display = "grid");
+          return;
+        }
+
+        const filters = [...activeSet].map(chip =>
+          chip.dataset.filter.toLowerCase()
+        );
+
+        cards.forEach(card => {
+          const tags = (card.dataset.tags || "").toLowerCase().split(/\s+/);
+          const show = filters.some(f => tags.includes(f));
+          card.style.display = show ? "grid" : "none";
+        });
+      }
+
+      chips.forEach(chip => {
+        chip.addEventListener("click", () => {
+          if (activeSet.has(chip)) {
+            activeSet.delete(chip);
+            chip.classList.remove("active-filter");
+          } else {
+            activeSet.add(chip);
+            chip.classList.add("active-filter");
+          }
+
+          updateActiveChipsDisplay();
+          filterProjects();
+        });
+      });
+
+      // initial UI
+      updateActiveChipsDisplay();
+    })();
+    </script>
+
+
+
 
 </body>
 </html>
-
