@@ -130,13 +130,17 @@
     .btn { display: inline-flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; font-weight: 600; text-decoration: none; }
     .btn-primary { background: var(--accent); color: #fff; border: 1px solid var(--accent); }
     .btn-primary:hover { background: var(--brand-strong); border-color: var(--brand-strong); }
+    
     /* --- Chips / tags --- */
     .chip {
       display:inline-flex; align-items:center; gap:6px;
       padding:6px 10px; border-radius:999px; font-size:12px; font-weight:600;
       border:1px solid var(--soft); background:var(--soft); color:var(--text);
+      cursor: pointer;
+      transition: 0.15s ease;
     }
     .chip i { font-size:12px; opacity:.8 }
+    
     /* Highlight active chip without changing original color */
     .chip.active-filter {
       border-width: 2px;
@@ -144,17 +148,10 @@
       box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 50%, transparent);
     }
 
-    .chip {
-      cursor: pointer;
-      transition: 0.15s ease;
-    }
-
     .chip:hover {
       transform: scale(1.05);
       border-color: var(--accent);
-      /* KEEP original background + text color */
     }
-
 
     /* variants */
     .chip-tech { background: color-mix(in oklab, var(--brand) 12%, white 88%); border-color: color-mix(in oklab, var(--brand) 25%, white 75%); }
@@ -167,15 +164,15 @@
       gap: 8px;
       margin: 10px 0 18px;
       align-items: center;
+      min-height: 32px; /* Prevent layout shift */
     }
 
     .active-chips-label {
       font-size: 13px;
       font-weight: 600;
       opacity: 0.8;
+      margin-right: 8px;
     }
-
-
 
     /* --- Card hover polish + accent line --- */
     .project-card {
@@ -190,10 +187,10 @@
       border-color: color-mix(in oklab, var(--brand) 35%, var(--soft));
     }
 
-
     /* small image polish on hover */
     .project-card img { transition: transform .3s ease; }
     .project-card:hover img { transform: scale(1.02); }
+    
     /* ==== Chips: dark-mode contrast boost ==== */
 
     /* Base chip */
@@ -216,20 +213,12 @@
       color: #e9efff; /* slightly brighter text for legibility */
     }
 
-    /* Domain chips (amber/teal—pick the one you use) */
-    /* If you went with AMBER: */
+    /* Domain chips (amber/teal) */
     body.dark-mode .chip-domain{
       background: color-mix(in oklab, #f59e0b 22%, transparent 78%);
       border-color: color-mix(in oklab, #f59e0b 48%, transparent 52%);
       color: #ffe8c2;
     }
-    /* If you chose TEAL instead, swap the block above for this:
-    body.dark-mode .chip-domain{
-      background: color-mix(in oklab, #14b8a6 24%, transparent 76%);
-      border-color: color-mix(in oklab, #14b8a6 52%, transparent 48%);
-      color: #d6fffb;
-    }
-    */
 
     /* Impact chips (green) */
     body.dark-mode .chip-impact{
@@ -268,7 +257,6 @@
   </style>
 </head>
 <body>
-  <!-- Header / Nav -->
   <header class="site-header">
     <div class="container nav">
       <div class="nav-logo">
@@ -278,8 +266,7 @@
         <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
         <a href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
         <a href="projects.html"><i class="fa-solid fa-diagram-project"></i> Projects</a>
-        <a href="cv.html"><i class="fa-solid fa-file-lines"></i> CV</a>
-      </div>
+        </div>
       <button class="btn-toggle" id="toggleTheme"><i class="fa-solid fa-moon"></i></button>
     </div>
   </header>
@@ -287,7 +274,6 @@
 
 
   <main class="container">
-    <!-- Page title -->
     <section class="page-head">
       <div class="title-card">
         <h1 class="page-title">My Projects</h1>
@@ -297,7 +283,6 @@
 
     <div id="active-chips" class="active-chips"></div>
 
-    <!-- Projects list -->
     <section class="projects">
       <article class="project-card" data-tags="python apsim data-eng ai crop">
         <img src="data_eng_img.png" alt="AI-based crop modelling project image" />
@@ -394,6 +379,7 @@
               <i class="fa-solid fa-recycle"></i>Food Waste Reduction
             </span>
           </div>
+        </div>
       </article>
 
       <article class="project-card" data-tags="xr unity data-viz education">
@@ -478,173 +464,143 @@
   </main>
 
   <script>
-      // On load, if we pre-flagged dark, also set body class & icon
-      document.addEventListener('DOMContentLoaded', () => {
-        const hadDark = document.documentElement.classList.contains('dark-init');
-        if (hadDark) document.body.classList.add('dark-mode');
+    // Theme toggling + Persist
+    document.addEventListener('DOMContentLoaded', () => {
+      const hadDark = document.documentElement.classList.contains('dark-init');
+      if (hadDark) document.body.classList.add('dark-mode');
 
-        const toggleBtn = document.getElementById('toggleTheme');
-        if (!toggleBtn) return;
+      const toggleBtn = document.getElementById('toggleTheme');
+      if (!toggleBtn) return;
 
-        // Sync icon on initial paint
-        const icon = toggleBtn.querySelector('i');
-        if (document.body.classList.contains('dark-mode')) {
-          icon.classList.replace('fa-moon','fa-sun');
-        } else {
-          icon.classList.replace('fa-sun','fa-moon');
-        }
-
-        // Toggle + persist
-        toggleBtn.addEventListener('click', () => {
-          const goingDark = !document.body.classList.contains('dark-mode');
-          document.body.classList.toggle('dark-mode', goingDark);
-          localStorage.setItem('theme', goingDark ? 'dark' : 'light');
-
-          // Keep <html> flag in sync for the next navigation
-          document.documentElement.classList.toggle('dark-init', goingDark);
-
-          // Update icon
-          const i = toggleBtn.querySelector('i');
-          if (goingDark) { i.classList.replace('fa-moon','fa-sun'); }
-          else { i.classList.replace('fa-sun','fa-moon'); }
-
-          // If you use Vanta on this page, re-init for new colors
-          if (typeof initVanta === 'function') setTimeout(initVanta, 0);
-        });
-      });
-    </script>
-    <script>
-      // Fade in when the page loads
-      window.addEventListener('DOMContentLoaded', () => {
-        document.body.classList.add('fade-in');
-      });
-
-      // Fade out smoothly when navigating away
-      document.querySelectorAll('a[href]').forEach(link => {
-        const url = link.getAttribute('href');
-        if (!url.startsWith('#') && !url.startsWith('mailto') && !url.startsWith('tel')) {
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.body.classList.remove('fade-in');
-            setTimeout(() => { window.location.href = url; }, 250);
-          });
-        }
-      });
-    </script>
-    <script>
-      document.getElementById('y').textContent = new Date().getFullYear();
-    </script>
-    <script>
-      (function () {
-        const cards = Array.from(document.querySelectorAll(".project-card"));
-        const chips = Array.from(document.querySelectorAll(".project-card .chip"));
-
-        let activeFilter = null;
-
-        function applyFilter(filter) {
-          cards.forEach(card => {
-            const tags = (card.dataset.tags || "").split(/\s+/);
-            const match = !filter || filter === "all" || tags.includes(filter);
-            card.style.display = match ? "grid" : "none";
-          });
-        }
-
-        function clearActiveChips() {
-          chips.forEach(chip => chip.classList.remove("active-filter"));
-        }
-
-        chips.forEach(chip => {
-          chip.addEventListener("click", () => {
-            const filter = chip.dataset.filter;
-            // toggle behaviour: click again to reset
-            if (activeFilter === filter) {
-              activeFilter = null;
-              clearActiveChips();
-              applyFilter(null);
-            } else {
-              activeFilter = filter;
-              clearActiveChips();
-              chip.classList.add("active-filter");
-              applyFilter(filter);
-            }
-          });
-        });
-      })();
-    </script>
-    <script>
-    (function () {
-      const cards = document.querySelectorAll(".project-card");
-      const chips = document.querySelectorAll(".chip[data-filter]");
-      const activeArea = document.getElementById("active-chips");
-
-      const activeSet = new Set();
-
-      function updateActiveChipsDisplay() {
-        activeArea.innerHTML = "";
-
-        if (activeSet.size > 0) {
-          const label = document.createElement("span");
-          label.className = "active-chips-label";
-          label.textContent = "Active filters:";
-          activeArea.appendChild(label);
-        }
-
-        [...activeSet].forEach(originalChip => {
-          const clone = originalChip.cloneNode(true);
-          clone.classList.add("active-filter");
-
-          // ⬅️ Make clones clickable to unselect
-          clone.style.cursor = "pointer";
-          clone.addEventListener("click", () => {
-            activeSet.delete(originalChip);
-            originalChip.classList.remove("active-filter");
-            updateActiveChipsDisplay();
-            filterProjects();
-          });
-
-          activeArea.appendChild(clone);
-        });
+      const icon = toggleBtn.querySelector('i');
+      if (document.body.classList.contains('dark-mode')) {
+        icon.classList.replace('fa-moon','fa-sun');
+      } else {
+        icon.classList.replace('fa-sun','fa-moon');
       }
 
-      function filterProjects() {
-        if (activeSet.size === 0) {
-          cards.forEach(card => card.style.display = "grid");
+      toggleBtn.addEventListener('click', () => {
+        const goingDark = !document.body.classList.contains('dark-mode');
+        document.body.classList.toggle('dark-mode', goingDark);
+        localStorage.setItem('theme', goingDark ? 'dark' : 'light');
+        document.documentElement.classList.toggle('dark-init', goingDark);
+
+        const i = toggleBtn.querySelector('i');
+        if (goingDark) { i.classList.replace('fa-moon','fa-sun'); }
+        else { i.classList.replace('fa-sun','fa-moon'); }
+
+        // Re-init Vanta if exists
+        if (typeof initVanta === 'function') setTimeout(initVanta, 0);
+      });
+    });
+
+    // Page Fade In/Out
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('fade-in');
+    });
+
+    document.querySelectorAll('a[href]').forEach(link => {
+      const url = link.getAttribute('href');
+      if (!url.startsWith('#') && !url.startsWith('mailto') && !url.startsWith('tel')) {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.remove('fade-in');
+          setTimeout(() => { window.location.href = url; }, 250);
+        });
+      }
+    });
+
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+
+<script>
+  (function () {
+    const cards = document.querySelectorAll(".project-card");
+    const allChips = document.querySelectorAll(".chip[data-filter]");
+    const activeArea = document.getElementById("active-chips");
+
+    // Track active filters by NAME (e.g. "python")
+    const activeFilters = new Set();
+
+    function updateUI() {
+      // 1. Rebuild the Active Chips Bar
+      activeArea.innerHTML = "";
+      
+      if (activeFilters.size > 0) {
+        const label = document.createElement("span");
+        label.className = "active-chips-label";
+        label.textContent = "Matching all:"; // Label change to reflect logic
+        activeArea.appendChild(label);
+      }
+
+      activeFilters.forEach(filterName => {
+        // Clone the style/icon of the first matching chip found on the page
+        const templateChip = document.querySelector(`.chip[data-filter="${filterName}"]`);
+        
+        if (templateChip) {
+          const clone = templateChip.cloneNode(true);
+          clone.classList.add("active-filter");
+          clone.style.cursor = "pointer";
+          
+          // Clicking the active chip at the top REMOVES it
+          clone.addEventListener("click", (e) => {
+            e.stopPropagation(); 
+            toggleFilter(filterName);
+          });
+          
+          activeArea.appendChild(clone);
+        }
+      });
+
+      // 2. Update visual state of ALL chips on cards
+      allChips.forEach(chip => {
+        if (activeFilters.has(chip.dataset.filter)) {
+          chip.classList.add("active-filter");
+        } else {
+          chip.classList.remove("active-filter");
+        }
+      });
+
+      // 3. Filter the Project Cards (AND Logic)
+      cards.forEach(card => {
+        // If no filters active, show everything
+        if (activeFilters.size === 0) {
+          card.style.display = "grid";
           return;
         }
 
-        const filters = [...activeSet].map(chip =>
-          chip.dataset.filter.toLowerCase()
-        );
-
-        cards.forEach(card => {
-          const tags = (card.dataset.tags || "").toLowerCase().split(/\s+/);
-          const show = filters.some(f => tags.includes(f));
-          card.style.display = show ? "grid" : "none";
-        });
-      }
-
-      chips.forEach(chip => {
-        chip.addEventListener("click", () => {
-          if (activeSet.has(chip)) {
-            activeSet.delete(chip);
-            chip.classList.remove("active-filter");
-          } else {
-            activeSet.add(chip);
-            chip.classList.add("active-filter");
-          }
-
-          updateActiveChipsDisplay();
-          filterProjects();
-        });
+        // Get tags for this card
+        const cardTags = (card.dataset.tags || "").toLowerCase().split(/\s+/);
+        
+        // AND Logic: Check if EVERY selected filter is present in the card's tags
+        const isMatch = Array.from(activeFilters).every(filter => cardTags.includes(filter));
+        
+        card.style.display = isMatch ? "grid" : "none";
       });
+    }
 
-      // initial UI
-      updateActiveChipsDisplay();
-    })();
-    </script>
+    function toggleFilter(filterName) {
+      if (activeFilters.has(filterName)) {
+        activeFilters.delete(filterName);
+      } else {
+        activeFilters.add(filterName);
+      }
+      updateUI();
+    }
 
+    // Attach Click Events to every chip in the project cards
+    allChips.forEach(chip => {
+      chip.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const filter = chip.dataset.filter;
+        toggleFilter(filter);
+      });
+    });
 
-
+    // Run once on load to ensure clean state
+    updateUI();
+  })();
+  </script>
 
 </body>
 </html>
