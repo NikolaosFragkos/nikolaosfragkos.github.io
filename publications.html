@@ -53,38 +53,66 @@
     html { overflow-y: scroll; }
 
     .site-header { position: sticky; top: 0; z-index: 40; background: var(--card); border-bottom: 1px solid var(--soft); }
-    .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      min-width: 150px;      /* ✅ match or slightly exceed logo width */
+    .site-header { 
+      position: sticky; 
+      top: 0; 
+      z-index: 40; 
+      background: var(--card); 
+      border-bottom: 1px solid var(--soft); 
     }
 
-    .nav-logo-img {
-      height: 55px;
-      width: 55px;          /* ✅ reserve width so it doesn't shift on load */
-      border-radius: 8px;
-      transition: transform 0.2s ease;
+    .nav { 
+      position: relative; /* Essential for centering the nav-center */
+      display: flex; 
+      align-items: center; 
+      justify-content: space-between; 
+      height: 64px; 
     }
+    
+    .nav-logo { 
+      display: flex; 
+      align-items: center; 
+      min-width: 150px; 
+    }
+
+    .nav-logo-img { height: 55px; width: 55px; border-radius: 8px; transition: transform 0.2s ease; }
     .nav-logo-img:hover { transform: scale(1.05); }
     body.dark-mode .nav-logo-img { content: url("Logo_2_trans.png"); }
 
-    .nav-center { flex: 1; display: flex; justify-content: center; gap: 18px; }
-    .nav-center a {
-      color: var(--text);
-      font-weight: 500;
-      opacity: 0.85;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    /* The Centered Links */
+    .nav-center { 
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex; 
+      justify-content: center; 
+      gap: 18px; 
+      white-space: nowrap; /* Prevents links from stacking on small windows */
     }
-    .nav-center i { width: 1.25em; text-align: center; }
-    .nav-center a:hover,
-    .nav-center a.active { opacity: 1; color: var(--brand-strong); text-decoration: none; }
 
-    .btn-toggle { padding: 6px 10px; border-radius: 8px; border: 1px solid var(--soft); background: var(--soft); cursor: pointer; color: var(--text); margin-left: auto; }
+    .nav-center a { 
+      color: var(--text); 
+      font-weight: 500; 
+      opacity: 0.85; 
+      text-decoration: none; 
+      display: inline-flex; 
+      align-items: center; 
+      gap: 8px; 
+    }
+
+    .nav-center i { width: 1.25em; text-align: center; }
+    .nav-center a:hover, .nav-center a.active { opacity: 1; color: var(--brand-strong); text-decoration: none; }
+
+    .btn-toggle { 
+      padding: 6px 10px; 
+      border-radius: 8px; 
+      border: 1px solid var(--soft); 
+      background: var(--soft); 
+      cursor: pointer; 
+      color: var(--text); 
+      margin-left: auto; 
+      z-index: 50; /* Keeps button clickable above the absolute layer */
+    }
     .btn-toggle:hover { background: var(--brand); color: #fff; border-color: var(--brand); }
 
     /* Title block */
@@ -388,6 +416,7 @@
 
 </body>
 </html>
+
 
 
 
