@@ -225,7 +225,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      transform: translateX(-20px);
+      transform: translateX(-15px);
     }
     
     .hero-card {
@@ -246,6 +246,8 @@
       object-fit: cover; 
       display: block; 
       border: 3px solid var(--soft); 
+        /* move only the image slightly up */
+      transform: translateY(-7px);
     }
 
     .contact-icons {
@@ -254,7 +256,10 @@
       justify-content: center;
       align-items: center;
       gap: 10px;
-      margin-top: 14px;
+    
+      /* move only the contact icons upward */
+      margin-top: 8px;
+      transform: translateY(-1px);
     }
 
     .contact-icons .icon-btn {
@@ -557,7 +562,7 @@
               <i class="fa-brands fa-linkedin"></i>
             </a>
 
-            <a href="https://scholar.google.com/citations?user=MxcSjT8AAAAJ&hl=en" target="_blank" rel="noopener" class="btn btn-soft icon-btn" aria-label="Google Scholar" title="Google Scholar">
+            <a href="https://scholar.google.com/citations?user=YOUR_GOOGLE_SCHOLAR_ID" target="_blank" rel="noopener" class="btn btn-soft icon-btn" aria-label="Google Scholar" title="Google Scholar">
               <i class="scholar-icon" aria-hidden="true"></i>
             </a>
           </div>
