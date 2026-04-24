@@ -308,3 +308,13 @@ html:not(.dark-init) body:not(.dark-mode) .scroll-cue:hover {
   border-radius: 6px;
   font-size: 0.85em;
 }
+
+/* Bio links: blue in dark mode */
+html.dark-init .intro p a,
+html.dark-init .intro p a strong,
+html.dark-init .intro p a:visited,
+body.dark-mode .intro p a,
+body.dark-mode .intro p a strong,
+body.dark-mode .intro p a:visited {
+  color: var(--brand) !important;
+}
