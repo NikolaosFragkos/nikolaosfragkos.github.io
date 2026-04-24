@@ -122,6 +122,10 @@ body.dark-mode .scholar-icon {
   max-width: 70ch;
 }
 
+body.dark-mode .intro p a strong {
+  color: var(--brand);
+}
+
 .scroll-cue {
   position: absolute;
   bottom: 30px;
