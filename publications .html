@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <link rel="icon" type="image/png" href="assets/logos/Logo_2.png" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Publications — Nikolaos Fragkos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" />
+  <script>
+    (function () {
+      if (localStorage.getItem('theme') === 'dark') {
+        // Use an early flag on <html> so CSS variables switch before paint
+        document.documentElement.classList.add('dark-init');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/publications.css" />
+</head>
+<body>
+  <!-- Header / Nav -->
+  <header class="site-header">
+    <div class="container nav">
+      <div class="nav-logo">
+        <img src="assets/logos/Logo_2_trans.png" alt="Logo" class="nav-logo-img" loading="eager" decoding="async" fetchpriority="high">
+      </div>
+      <div class="nav-center">
+        <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
+        <a href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
+        <a href="projects.html"><i class="fa-solid fa-diagram-project"></i> Projects</a>
+        <!-- <a href="cv.html"><i class="fa-solid fa-file-lines"></i> CV</a> -->
+      </div>
+      <button class="btn-toggle" id="toggleTheme"><i class="fa-solid fa-moon"></i></button>
+    </div>
+  </header>
+
+
+  <main class="container">
+    <!-- Title block -->
+    <section class="page-head">
+      <div class="title-card">
+        <h1 class="page-title">My Publications</h1>
+        <p class="page-sub">Peer-reviewed articles and conference proceedings.</p>
+      </div>
+    </section>
+
+    <!-- Publications list block -->
+    <section class="card pubs-card">
+      <!-- 2025 -->
+      <div class="pub-year" id="y2026">
+        <h3><i class="fa-solid fa-calendar"></i> 2026</h3>
+        <ul class="pub-list">
+
+
+          <li class="pub-card">
+            <h4 class="pub-title">
+              Food Origin Authenticity Using Deep Learning and Citizen Science: Bananas Case Study
+            </h4>
+            <p class="pub-meta">
+              Fragkos, N.; Bouzembrak, Y.; Erasmus, S.; Soares, F. —
+              <span class="pub-venue">Foods</span> 
+            </p>
+            <div class="pub-actions">
+              <a href="#" class="disabled" title="Under Review - No Link">
+                <i class="fa-solid fa-hourglass-half"></i> Accepted
+              </a>
+            </div>
+          </li>
+          
+          <li class="pub-card">
+            <h4 class="pub-title">
+              The Role of AI in Combating Food Fraud: A Systematic Literature Review
+            </h4>
+            <p class="pub-meta">
+              Fragkos, N.; Bouzembrak, Y.; Erasmus, S. — 
+              <span class="pub-venue">Critical Reviews in Food Science and Nutrition, 1–19.</span> 
+            </p>
+            <div class="pub-actions">
+              <a href="https://doi.org/10.1080/10408398.2026.2654710" target="_blank" rel="noopener">
+                <i class="fa-solid fa-link"></i> DOI
+              </a>
+            </div>
+
+          </li>
+          
+
+        </ul>
+      </div>
+
+      <!-- 2024 -->
+      <div class="pub-year" id="y2024">
+        <h3><i class="fa-solid fa-calendar"></i> 2024</h3>
+        <ul class="pub-list">
+          <li class="pub-card">
+            <h4 class="pub-title">
+              A Sentiment Analysis Approach for Exploring Customer Reviews of Online Food Delivery Services: A Greek Case
+            </h4>
+            <p class="pub-meta">
+              Fragkos, N.; Liapakis, A.; Ntaliani, M.; Ntalianis, F.; Costopoulou, C. —
+              <span class="pub-venue">Digital</span>, 4, 698–709 (2024)
+            </p>
+            <div class="pub-actions">
+              <a href="https://doi.org/10.3390/digital4030035" target="_blank" rel="noopener">
+                <i class="fa-solid fa-link"></i> DOI
+              </a>
+              <!-- If you have a PDF, add it here -->
+              <!-- <a href="paper.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf"></i> PDF</a> -->
+              <!-- If you have code/data -->
+              <!-- <a href="https://github.com/..." target="_blank" rel="noopener"><i class="fa-solid fa-code"></i> Code</a> -->
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 2022 -->
+      <div class="pub-year" id="y2022">
+        <h3><i class="fa-solid fa-calendar"></i> 2022</h3>
+        <ul class="pub-list">
+          <li class="pub-card">
+            <h4 class="pub-title">
+              Sentiment Analysis in Online Food Delivery: A Greek Case Study
+            </h4>
+            <p class="pub-meta">
+              Fragkos, N.; Liapakis, A.; Costopoulou, C.; Ntaliani, M. —
+              <span class="pub-venue">Proceedings of HAICTA 2022</span>
+            </p>
+            <div class="pub-actions">
+              <a href="https://ceur-ws.org/Vol-3293/paper7.pdf" target="_blank" rel="noopener">
+                <i class="fa-solid fa-link"></i> DOI
+              </a>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+
+    <footer class="site-footer">© <span id="y"></span> Nikolaos Fragkos</footer>
+  </main>
+
+  <script>
+    // On load, if we pre-flagged dark, also set body class & icon
+    document.addEventListener('DOMContentLoaded', () => {
+      const hadDark = document.documentElement.classList.contains('dark-init');
+      if (hadDark) document.body.classList.add('dark-mode');
+
+      const toggleBtn = document.getElementById('toggleTheme');
+      if (!toggleBtn) return;
+
+      // Sync icon on initial paint
+      const icon = toggleBtn.querySelector('i');
+      if (document.body.classList.contains('dark-mode')) {
+        icon.classList.replace('fa-moon','fa-sun');
+      } else {
+        icon.classList.replace('fa-sun','fa-moon');
+      }
+
+      // Toggle + persist
+      toggleBtn.addEventListener('click', () => {
+        const goingDark = !document.body.classList.contains('dark-mode');
+        document.body.classList.toggle('dark-mode', goingDark);
+        localStorage.setItem('theme', goingDark ? 'dark' : 'light');
+
+        // Keep <html> flag in sync for the next navigation
+        document.documentElement.classList.toggle('dark-init', goingDark);
+
+        // Update icon
+        const i = toggleBtn.querySelector('i');
+        if (goingDark) { i.classList.replace('fa-moon','fa-sun'); }
+        else { i.classList.replace('fa-sun','fa-moon'); }
+
+        // If you use Vanta on this page, re-init for new colors
+        if (typeof initVanta === 'function') setTimeout(initVanta, 0);
+      });
+    });
+  </script>
+  <script>
+    (function(){
+      const cards = document.querySelectorAll('.pub-card');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('is-visible'); });
+        }, { threshold: 0.12 });
+        cards.forEach(c => io.observe(c));
+      } else {
+        cards.forEach(c => c.classList.add('is-visible'));
+      }
+    })();
+  </script>
+  <script>
+      // Fade in when the page loads
+      window.addEventListener('DOMContentLoaded', () => {
+        document.body.classList.add('fade-in');
+      });
+
+      // Fade out smoothly when navigating away
+      document.querySelectorAll('a[href]').forEach(link => {
+        const url = link.getAttribute('href');
+        if (!url.startsWith('#') && !url.startsWith('mailto') && !url.startsWith('tel')) {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.body.classList.remove('fade-in');
+            setTimeout(() => { window.location.href = url; }, 250);
+          });
+        }
+      });
+    </script>
+    <script>
+      document.getElementById('y').textContent = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
+
+
