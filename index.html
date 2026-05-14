@@ -27,6 +27,36 @@
   </script>
   <link rel="stylesheet" href="assets/css/common.css" />
   <link rel="stylesheet" href="assets/css/index.css?v=2" />
+
+  <style>
+    :root {
+      --hero-gradient: linear-gradient(135deg, #dde6ff 0%, #eaf0ff 40%, #f0e9ff 70%, #e6f4ff 100%);
+      --name-gradient: linear-gradient(90deg, #1e56e6 0%, #6c3aff 50%, #2f6dff 100%);
+    }
+    html.dark-init, body.dark-mode {
+      --hero-gradient: linear-gradient(135deg, #0d1a3a 0%, #0f1830 40%, #160f2e 70%, #0a1828 100%);
+      --name-gradient: linear-gradient(90deg, #6aa7ff 0%, #a78bfa 50%, #60c0ff 100%);
+    }
+    .hero-full {
+      background: var(--hero-gradient);
+    }
+    .intro h1 {
+      font-size: clamp(28px, 2.8vw + 12px, 42px);
+      background: var(--name-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+    .avatar {
+      border: 3px solid transparent;
+      background-clip: padding-box;
+      outline: 3px solid rgba(107, 58, 255, 0.3);
+      outline-offset: 3px;
+      box-shadow: 0 0 24px rgba(47, 109, 255, 0.25);
+    }
+  </style>
 </head>
 
 <body>
