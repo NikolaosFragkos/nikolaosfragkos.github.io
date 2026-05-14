@@ -56,6 +56,13 @@
       outline-offset: 3px;
       box-shadow: 0 0 16px rgba(0,0,0,0.15);
     }
+
+    /* Timeline dot colors by type */
+    .vt-dot.dot-work     { background: #7c3aed; box-shadow: 0 0 0 4px rgba(124,58,237,0.2); }
+    .vt-dot.dot-edu      { background: #16a34a; box-shadow: 0 0 0 4px rgba(22,163,74,0.2); }
+    .vt-dot.dot-teaching { background: #ea580c; box-shadow: 0 0 0 4px rgba(234,88,12,0.2); }
+    .vt-dot.dot-award    { background: #ca8a04; box-shadow: 0 0 0 4px rgba(202,138,4,0.2); }
+    .vt-dot.dot-other    { background: #64748b; box-shadow: 0 0 0 4px rgba(100,116,139,0.2); }
   </style>
 </head>
 
@@ -97,7 +104,6 @@
 
             <a href="https://scholar.google.com/citations?user=MxcSjT8AAAAJ&hl=en" target="_blank" rel="noopener" class="btn btn-soft icon-btn" aria-label="Google Scholar" title="Google Scholar">
               <i class="fa-brands fa-google-scholar"></i>
-              
             </a>
           </div>
         </div>
@@ -117,8 +123,6 @@
             <a href="https://aoa.aua.gr/" target="_blank" rel="noopener"><strong>BSc in Agricultural Economics</strong></a> 
             (<a href="https://www2.aua.gr/en" target="_blank" rel="noopener"><strong>Agricultural University of Athens</strong></a>). 
           </p>
-          
-          
         </div>
       </div>
       
@@ -131,7 +135,7 @@
       <div class="vtimeline">
 
         <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-microchip"></i></div>
+          <div class="vt-dot dot-work" aria-hidden="true"><i class="fa-solid fa-briefcase"></i></div>
           <div class="vt-card">
             <div class="vt-date">May 2026</div>
             <p class="vt-text">PhD Candidate in Machine Learning</p>
@@ -140,8 +144,9 @@
             </span>
           </div>
         </article>
+
         <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
+          <div class="vt-dot dot-edu" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
           <div class="vt-card">
             <div class="vt-date">September 2025</div>
             <p class="vt-text">MSc Graduate (Data Science for Food & Health)</p>
@@ -152,7 +157,7 @@
         </article>
         
         <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-briefcase"></i></div>
+          <div class="vt-dot dot-work" aria-hidden="true"><i class="fa-solid fa-briefcase"></i></div>
           <div class="vt-card">
             <div class="vt-date">August 2025</div>
             <p class="vt-text">Research Data Engineer (AI-Based Crop Modeling)</p>
@@ -163,7 +168,7 @@
         </article>
         
         <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-briefcase"></i></div>
+          <div class="vt-dot dot-work" aria-hidden="true"><i class="fa-solid fa-briefcase"></i></div>
           <div class="vt-card">
             <div class="vt-date">March 2025</div>
             <p class="vt-text">Culinary Data Analyst Intern</p>
@@ -174,7 +179,7 @@
         </article>
         
         <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-chalkboard-teacher"></i></div>
+          <div class="vt-dot dot-teaching" aria-hidden="true"><i class="fa-solid fa-chalkboard-teacher"></i></div>
           <div class="vt-card">
             <div class="vt-date">November 2024</div>
             <p class="vt-text">Teaching Assistant (Food Fraud)</p>
@@ -185,7 +190,7 @@
         </article>
         
         <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-chalkboard-teacher"></i></div>
+          <div class="vt-dot dot-teaching" aria-hidden="true"><i class="fa-solid fa-chalkboard-teacher"></i></div>
           <div class="vt-card">
             <div class="vt-date">September 2024</div>
             <p class="vt-text">Teaching Assistant (Programming in Python)</p>
@@ -196,195 +201,7 @@
         </article>
         
         <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-satellite"></i></div>
+          <div class="vt-dot dot-other" aria-hidden="true"><i class="fa-solid fa-satellite"></i></div>
           <div class="vt-card">
             <div class="vt-date">July 2024</div>
-            <p class="vt-text">TALLHEDA Summer School (Precision Agriculture)</p>
-            <span class="timeline-location">
-              <i class="fa-solid fa-location-dot"></i> University of Ghent, Belgium
-            </span>
-          </div>
-        </article>
-        
-        <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-trophy"></i></div>
-          <div class="vt-card">
-            <div class="vt-date">November 2023</div>
-            <p class="vt-text">3rd Place Winner (Data Factory Hackathon)</p>
-            <span class="timeline-location">
-              <i class="fa-solid fa-location-dot"></i> Wageningen University and Research, Netherlands
-            </span>
-          </div>
-        </article>
-        
-        <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-rocket"></i></div>
-          <div class="vt-card">
-            <div class="vt-date">September 2023</div>
-            <p class="vt-text">MSc Student (Data Science for Food & Health)</p>
-            <span class="timeline-location">
-              <i class="fa-solid fa-location-dot"></i> Wageningen University and Research, Netherlands
-            </span>
-          </div>
-        </article>
-        
-        <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-medal"></i></div>
-          <div class="vt-card">
-            <div class="vt-date">August 2023</div>
-            <p class="vt-text">MSc Scholarship Recipient</p>
-            <span class="timeline-location">
-              <i class="fa-solid fa-location-dot"></i> John S. Latsis Public Benefit Foundation, Greece
-            </span>
-          </div>
-        </article>
-        
-        <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-anchor"></i></div>
-          <div class="vt-card">
-            <div class="vt-date">August 2023</div>
-            <p class="vt-text">Hellenic Navy Military Service</p>
-            <span class="timeline-location">
-              <i class="fa-solid fa-location-dot"></i> Chios, Greece
-            </span>
-          </div>
-        </article>
-        
-        <article class="vt-item">
-          <div class="vt-dot" aria-hidden="true"><i class="fa-solid fa-graduation-cap"></i></div>
-          <div class="vt-card">
-            <div class="vt-date">September 2022</div>
-            <p class="vt-text">IntMSc Graduate with Honors (Agricultural Economics)</p>
-            <span class="timeline-location">
-              <i class="fa-solid fa-location-dot"></i> Agricultural University of Athens, Greece
-            </span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <footer class="site-footer">© <span id="y"></span> Nikolaos Fragkos</footer>
-  </main>
-
-  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
-    
-    window.addEventListener('DOMContentLoaded', () => {
-      document.body.classList.add('fade-in');
-    });
-
-    document.querySelectorAll('a[href]').forEach(link => {
-      const url = link.getAttribute('href');
-
-      if (
-        url.startsWith('#') || 
-        url.startsWith('mailto') || 
-        url.startsWith('tel') || 
-        link.target === '_blank'
-      ) {
-        return;
-      }
-
-      link.addEventListener('click', (e) => {
-        if (e.ctrlKey || e.metaKey || e.shiftKey || e.altKey) return;
-        e.preventDefault();
-        document.body.classList.remove('fade-in');
-        setTimeout(() => { window.location.href = url; }, 250);
-      });
-    });
-
-    const toggleBtn = document.getElementById('toggleTheme');
-    
-    if (document.documentElement.classList.contains('dark-init')) {
-      document.body.classList.add('dark-mode');
-    }
-
-    function updateParticles(isDark) {
-      const colorHex = isDark ? '#6aa7ff' : '#2f6dff';
-      
-      particlesJS("particles-js", {
-        "particles": {
-          "number": { "value": 100, "density": { "enable": true, "value_area": 800 } },
-          "color": { "value": colorHex },
-          "shape": { "type": "circle", "stroke": { "width": 0, "color": "#000000" } },
-          "opacity": { "value": 0.7, "random": false },
-          "size": { "value": 3, "random": true },
-          "line_linked": {
-            "enable": true, 
-            "distance": 150, 
-            "color": colorHex, 
-            "opacity": 0.6, 
-            "width": 1
-          },
-          "move": { 
-            "enable": true, 
-            "speed": 1, 
-            "direction": "none", 
-            "random": false, 
-            "straight": false, 
-            "out_mode": "out", 
-            "bounce": false 
-          }
-        },
-        "interactivity": {
-          "detect_on": "canvas",
-          "events": {
-            "onhover": { "enable": true, "mode": "grab" },
-            "onclick": { "enable": true, "mode": "push" },
-            "resize": true
-          },
-          "modes": {
-            "grab": { "distance": 140, "line_linked": { "opacity": 1 } },
-            "push": { "particles_nb": 4 }
-          }
-        },
-        "retina_detect": true
-      });
-    }
-
-    function syncIcon() {
-      const icon = toggleBtn?.querySelector('i');
-
-      if (document.body.classList.contains('dark-mode')) {
-        icon?.classList.replace('fa-moon', 'fa-sun');
-      } else {
-        icon?.classList.replace('fa-sun', 'fa-moon');
-      }
-    }
-
-    syncIcon();
-
-    const isDarkInit = document.body.classList.contains('dark-mode');
-    updateParticles(isDarkInit);
-
-    toggleBtn?.addEventListener('click', () => {
-      const goingDark = !document.body.classList.contains('dark-mode');
-      
-      document.body.classList.toggle('dark-mode', goingDark);
-      document.documentElement.classList.toggle('dark-init', goingDark);
-      localStorage.setItem('theme', goingDark ? 'dark' : 'light');
-      
-      syncIcon();
-      updateParticles(goingDark);
-    });
-
-    (function(){
-      const items = document.querySelectorAll('.vt-item');
-
-      if ('IntersectionObserver' in window) {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach(e => {
-            if (e.isIntersecting) e.target.classList.add('is-visible');
-          });
-        }, { threshold: 0.12 });
-
-        items.forEach(el => io.observe(el));
-      } else {
-        items.forEach(el => el.classList.add('is-visible'));
-      }
-    })();
-  </script>
-</body>
-</html>
+            <p class="vt-text">TALLHEDA Summer School (
