@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
   <link rel="icon" type="image/png" href="assets/logos/Logo_2.png" />
   <meta charset="UTF-8" />
@@ -12,16 +10,112 @@
   <script>
     (function () {
       if (localStorage.getItem('theme') === 'dark') {
-        // Use an early flag on <html> so CSS variables switch before paint
         document.documentElement.classList.add('dark-init');
       }
     })();
   </script>
   <link rel="stylesheet" href="assets/css/common.css" />
   <link rel="stylesheet" href="assets/css/publications.css" />
+
+  <style>
+    /* Page title gradient */
+    .page-title {
+      background: linear-gradient(90deg, #1e3a8a 0%, #2f6dff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Active nav */
+    .nav-center a.active {
+      color: var(--brand-strong);
+      opacity: 1;
+      font-weight: 700;
+      border-bottom: 2px solid var(--brand-strong);
+      padding-bottom: 2px;
+    }
+
+    /* Publication type badge */
+    .pub-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .pub-badge.journal {
+      background: color-mix(in oklab, #2f6dff 12%, white 88%);
+      color: #1e56e6;
+      border: 1px solid color-mix(in oklab, #2f6dff 25%, white 75%);
+    }
+    .pub-badge.conference {
+      background: color-mix(in oklab, #16a34a 12%, white 88%);
+      color: #15803d;
+      border: 1px solid color-mix(in oklab, #16a34a 25%, white 75%);
+    }
+    body.dark-mode .pub-badge.journal {
+      background: color-mix(in oklab, #2f6dff 25%, transparent 75%);
+      color: #93c5fd;
+      border-color: color-mix(in oklab, #2f6dff 40%, transparent 60%);
+    }
+    body.dark-mode .pub-badge.conference {
+      background: color-mix(in oklab, #16a34a 25%, transparent 75%);
+      color: #86efac;
+      border-color: color-mix(in oklab, #16a34a 40%, transparent 60%);
+    }
+
+    /* Stats bar */
+    .pub-stats {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      padding: 14px 18px;
+      background: var(--soft);
+      border-radius: 12px;
+      margin-bottom: 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--muted);
+    }
+    .pub-stats span { display: flex; align-items: center; gap: 7px; }
+    .pub-stats i { color: var(--brand); }
+
+    /* Abstract toggle */
+    .abstract-toggle {
+      background: none;
+      border: none;
+      color: var(--brand);
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 6px;
+    }
+    .abstract-toggle:hover { text-decoration: underline; }
+    .abstract-body {
+      display: none;
+      margin-top: 10px;
+      padding: 12px 14px;
+      background: var(--soft);
+      border-radius: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+      border-left: 3px solid var(--brand);
+    }
+    .abstract-body.open { display: block; }
+  </style>
 </head>
+
 <body>
-  <!-- Header / Nav -->
   <header class="site-header">
     <div class="container nav">
       <div class="nav-logo">
@@ -29,17 +123,14 @@
       </div>
       <div class="nav-center">
         <a href="index.html"><i class="fa-solid fa-house"></i> Home</a>
-        <a href="publications.html"><i class="fa-solid fa-book"></i> Publications</a>
+        <a href="publications.html" class="active"><i class="fa-solid fa-book"></i> Publications</a>
         <a href="projects.html"><i class="fa-solid fa-diagram-project"></i> Projects</a>
-        <!-- <a href="cv.html"><i class="fa-solid fa-file-lines"></i> CV</a> -->
       </div>
       <button class="btn-toggle" id="toggleTheme"><i class="fa-solid fa-moon"></i></button>
     </div>
   </header>
 
-
   <main class="container">
-    <!-- Title block -->
     <section class="page-head">
       <div class="title-card">
         <h1 class="page-title">My Publications</h1>
@@ -47,45 +138,59 @@
       </div>
     </section>
 
-    <!-- Publications list block -->
     <section class="card pubs-card">
-      <!-- 2025 -->
+
+      <!-- Stats bar -->
+      <div class="pub-stats">
+        <span><i class="fa-solid fa-file-lines"></i> 4 Publications</span>
+        <span><i class="fa-solid fa-book-open"></i> 3 Journals</span>
+        <span><i class="fa-solid fa-users"></i> 1 Conference</span>
+      </div>
+
+      <!-- 2026 -->
       <div class="pub-year" id="y2026">
         <h3><i class="fa-solid fa-calendar"></i> 2026</h3>
         <ul class="pub-list">
 
-
           <li class="pub-card">
-            <h4 class="pub-title">
-              Food Origin Authenticity Using Deep Learning and Citizen Science: Bananas Case Study
-            </h4>
+            <span class="pub-badge journal"><i class="fa-solid fa-book-open"></i> Journal</span>
+            <h4 class="pub-title">Food Origin Authenticity Using Deep Learning and Citizen Science: Bananas Case Study</h4>
             <p class="pub-meta">
               Fragkos, N.; Bouzembrak, Y.; Erasmus, S.; Soares, F. —
-              <span class="pub-venue">Foods, 15(10), 1628.</span> 
+              <span class="pub-venue">Foods, 15(10), 1628.</span>
             </p>
+            <button class="abstract-toggle" onclick="toggleAbstract(this)">
+              <i class="fa-solid fa-chevron-down"></i> Show abstract
+            </button>
+            <div class="abstract-body">
+              Replace this with the abstract for the Bananas Case Study paper.
+            </div>
             <div class="pub-actions">
               <a href="https://www.mdpi.com/2304-8158/15/10/1628" target="_blank" rel="noopener">
                 <i class="fa-solid fa-link"></i> DOI
               </a>
             </div>
           </li>
-          
+
           <li class="pub-card">
-            <h4 class="pub-title">
-              The Role of AI in Combating Food Fraud: A Systematic Literature Review
-            </h4>
+            <span class="pub-badge journal"><i class="fa-solid fa-book-open"></i> Journal</span>
+            <h4 class="pub-title">The Role of AI in Combating Food Fraud: A Systematic Literature Review</h4>
             <p class="pub-meta">
-              Fragkos, N.; Bouzembrak, Y.; Erasmus, S. — 
-              <span class="pub-venue">Critical Reviews in Food Science and Nutrition, 1–19.</span> 
+              Fragkos, N.; Bouzembrak, Y.; Erasmus, S. —
+              <span class="pub-venue">Critical Reviews in Food Science and Nutrition, 1–19.</span>
             </p>
+            <button class="abstract-toggle" onclick="toggleAbstract(this)">
+              <i class="fa-solid fa-chevron-down"></i> Show abstract
+            </button>
+            <div class="abstract-body">
+              Replace this with the abstract for the AI in Food Fraud paper.
+            </div>
             <div class="pub-actions">
               <a href="https://doi.org/10.1080/10408398.2026.2654710" target="_blank" rel="noopener">
                 <i class="fa-solid fa-link"></i> DOI
               </a>
             </div>
-
           </li>
-          
 
         </ul>
       </div>
@@ -94,24 +199,27 @@
       <div class="pub-year" id="y2024">
         <h3><i class="fa-solid fa-calendar"></i> 2024</h3>
         <ul class="pub-list">
+
           <li class="pub-card">
-            <h4 class="pub-title">
-              A Sentiment Analysis Approach for Exploring Customer Reviews of Online Food Delivery Services: A Greek Case
-            </h4>
+            <span class="pub-badge journal"><i class="fa-solid fa-book-open"></i> Journal</span>
+            <h4 class="pub-title">A Sentiment Analysis Approach for Exploring Customer Reviews of Online Food Delivery Services: A Greek Case</h4>
             <p class="pub-meta">
               Fragkos, N.; Liapakis, A.; Ntaliani, M.; Ntalianis, F.; Costopoulou, C. —
               <span class="pub-venue">Digital</span>, 4, 698–709 (2024)
             </p>
+            <button class="abstract-toggle" onclick="toggleAbstract(this)">
+              <i class="fa-solid fa-chevron-down"></i> Show abstract
+            </button>
+            <div class="abstract-body">
+              Replace this with the abstract for the Sentiment Analysis paper.
+            </div>
             <div class="pub-actions">
               <a href="https://doi.org/10.3390/digital4030035" target="_blank" rel="noopener">
                 <i class="fa-solid fa-link"></i> DOI
               </a>
-              <!-- If you have a PDF, add it here -->
-              <!-- <a href="paper.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf"></i> PDF</a> -->
-              <!-- If you have code/data -->
-              <!-- <a href="https://github.com/..." target="_blank" rel="noopener"><i class="fa-solid fa-code"></i> Code</a> -->
             </div>
           </li>
+
         </ul>
       </div>
 
@@ -119,30 +227,45 @@
       <div class="pub-year" id="y2022">
         <h3><i class="fa-solid fa-calendar"></i> 2022</h3>
         <ul class="pub-list">
+
           <li class="pub-card">
-            <h4 class="pub-title">
-              Sentiment Analysis in Online Food Delivery: A Greek Case Study
-            </h4>
+            <span class="pub-badge conference"><i class="fa-solid fa-users"></i> Conference</span>
+            <h4 class="pub-title">Sentiment Analysis in Online Food Delivery: A Greek Case Study</h4>
             <p class="pub-meta">
               Fragkos, N.; Liapakis, A.; Costopoulou, C.; Ntaliani, M. —
               <span class="pub-venue">Proceedings of HAICTA 2022</span>
             </p>
+            <button class="abstract-toggle" onclick="toggleAbstract(this)">
+              <i class="fa-solid fa-chevron-down"></i> Show abstract
+            </button>
+            <div class="abstract-body">
+              Replace this with the abstract for the HAICTA 2022 conference paper.
+            </div>
             <div class="pub-actions">
               <a href="https://ceur-ws.org/Vol-3293/paper7.pdf" target="_blank" rel="noopener">
                 <i class="fa-solid fa-link"></i> DOI
               </a>
             </div>
           </li>
+
         </ul>
       </div>
-    </section>
 
+    </section>
 
     <footer class="site-footer">© <span id="y"></span> Nikolaos Fragkos</footer>
   </main>
 
   <script>
-    // On load, if we pre-flagged dark, also set body class & icon
+    function toggleAbstract(btn) {
+      const body = btn.nextElementSibling;
+      const icon = btn.querySelector('i');
+      const isOpen = body.classList.toggle('open');
+      btn.innerHTML = isOpen
+        ? '<i class="fa-solid fa-chevron-up"></i> Hide abstract'
+        : '<i class="fa-solid fa-chevron-down"></i> Show abstract';
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
       const hadDark = document.documentElement.classList.contains('dark-init');
       if (hadDark) document.body.classList.add('dark-mode');
@@ -150,34 +273,39 @@
       const toggleBtn = document.getElementById('toggleTheme');
       if (!toggleBtn) return;
 
-      // Sync icon on initial paint
       const icon = toggleBtn.querySelector('i');
       if (document.body.classList.contains('dark-mode')) {
-        icon.classList.replace('fa-moon','fa-sun');
+        icon.classList.replace('fa-moon', 'fa-sun');
       } else {
-        icon.classList.replace('fa-sun','fa-moon');
+        icon.classList.replace('fa-sun', 'fa-moon');
       }
 
-      // Toggle + persist
       toggleBtn.addEventListener('click', () => {
         const goingDark = !document.body.classList.contains('dark-mode');
         document.body.classList.toggle('dark-mode', goingDark);
         localStorage.setItem('theme', goingDark ? 'dark' : 'light');
-
-        // Keep <html> flag in sync for the next navigation
         document.documentElement.classList.toggle('dark-init', goingDark);
-
-        // Update icon
         const i = toggleBtn.querySelector('i');
-        if (goingDark) { i.classList.replace('fa-moon','fa-sun'); }
-        else { i.classList.replace('fa-sun','fa-moon'); }
-
-        // If you use Vanta on this page, re-init for new colors
-        if (typeof initVanta === 'function') setTimeout(initVanta, 0);
+        if (goingDark) { i.classList.replace('fa-moon', 'fa-sun'); }
+        else { i.classList.replace('fa-sun', 'fa-moon'); }
       });
     });
-  </script>
-  <script>
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('fade-in');
+    });
+
+    document.querySelectorAll('a[href]').forEach(link => {
+      const url = link.getAttribute('href');
+      if (!url.startsWith('#') && !url.startsWith('mailto') && !url.startsWith('tel') && link.target !== '_blank') {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          document.body.classList.remove('fade-in');
+          setTimeout(() => { window.location.href = url; }, 250);
+        });
+      }
+    });
+
     (function(){
       const cards = document.querySelectorAll('.pub-card');
       if ('IntersectionObserver' in window) {
@@ -189,30 +317,8 @@
         cards.forEach(c => c.classList.add('is-visible'));
       }
     })();
+
+    document.getElementById('y').textContent = new Date().getFullYear();
   </script>
-  <script>
-      // Fade in when the page loads
-      window.addEventListener('DOMContentLoaded', () => {
-        document.body.classList.add('fade-in');
-      });
-
-      // Fade out smoothly when navigating away
-      document.querySelectorAll('a[href]').forEach(link => {
-        const url = link.getAttribute('href');
-        if (!url.startsWith('#') && !url.startsWith('mailto') && !url.startsWith('tel')) {
-          link.addEventListener('click', (e) => {
-            e.preventDefault();
-            document.body.classList.remove('fade-in');
-            setTimeout(() => { window.location.href = url; }, 250);
-          });
-        }
-      });
-    </script>
-    <script>
-      document.getElementById('y').textContent = new Date().getFullYear();
-    </script>
-
 </body>
 </html>
-
-
